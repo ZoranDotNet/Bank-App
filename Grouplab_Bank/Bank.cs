@@ -9,7 +9,7 @@
         {
             Users = new List<User>();
 
-            var user = new User("admin", "123", true);
+            var user = new User("Reidar", "admin", "123", true);
             Users.Add(user);
 
         }
