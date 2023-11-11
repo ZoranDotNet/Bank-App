@@ -2,6 +2,7 @@
 {
     internal class User
     {
+        public string? Name { get; set; }
         public string? Username { get; set; }
         public string? Password { get; set; }
         public bool Admin { get; set; } = false;
@@ -15,15 +16,17 @@
 
         }
 
-        public User(string username, string password)
+        public User(string name, string username, string password)
         {
+            Name = name;
             Username = username;
             Password = password;
             BankAccounts = new List<BankAccount>();
         }
 
-        public User(string username, string password, bool admin)
+        public User(string name, string username, string password, bool admin)
         {
+            Name = name;
             Username = username;
             Password = password;
             Admin = admin;
