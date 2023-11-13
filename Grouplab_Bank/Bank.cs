@@ -34,23 +34,34 @@
                 bool exists = Users.Exists(e => e.Username == userNameInput);
                 if (exists)
                 {
-                    Console.Clear();
                     LoggedUser = Users.Find(e => e.Username == userNameInput);
-                    Console.WriteLine($"User Name: {LoggedUser.Username}\n\n");
-                    Console.Write("Password: ");
-                    var userPasswordInput = Console.ReadLine();
-                    if (LoggedUser.Password != userPasswordInput)
+                    if (LoggedUser.FailedLogin >= 3)
                     {
-                        LoggedUser.FailedLogin++;
-                        Console.WriteLine("Loggin failed!");
-                        Console.WriteLine($"You have {3-LoggedUser.FailedLogin} attempts left");
+                        Console.WriteLine("Account Locked!\nContact customer support");
+                        LoggedUser.IsLocked = true;
                         Console.ReadKey();
                     }
                     else
                     {
-                        Console.WriteLine($"\nWelcome {LoggedUser.Name}!");
-                        Console.ReadKey();
-                        loggedIn=true;
+                        Console.Clear();
+                        Console.WriteLine($"User Name: {LoggedUser.Username}\n\n");
+                        Console.Write("Password: ");
+                        var userPasswordInput = Console.ReadLine();
+                        if (LoggedUser.Password != userPasswordInput)
+                        {
+                            LoggedUser.FailedLogin++;
+                            Console.Clear();
+                            Console.WriteLine("Loggin failed!");
+                            Console.WriteLine($"You have {3 - LoggedUser.FailedLogin} attempts left");
+                            Console.ReadKey();
+                        }
+                        else
+                        {
+                            Console.Clear();
+                            Console.WriteLine($"\nWelcome {LoggedUser.Name}!");
+                            Console.ReadKey();
+                            loggedIn = true;
+                        }
                     }
                 }
             } while (!loggedIn);
