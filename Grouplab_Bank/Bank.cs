@@ -16,7 +16,6 @@
 
         public void Run()
         {
-            Console.WriteLine("Nu kör vi :) ");
             User LoggedUser=Login();
             
         }
@@ -59,6 +58,7 @@
                         {
                             Console.Clear();
                             Console.WriteLine($"\nWelcome {LoggedUser.Name}!");
+                            LoggedUser.FailedLogin = 0;
                             Console.ReadKey();
                             loggedIn = true;
                         }
