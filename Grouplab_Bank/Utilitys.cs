@@ -10,7 +10,8 @@ namespace Grouplab_Bank
     {
         public static void Logo()
         {
-            Console.Title = "ASCII Art";
+            Console.Clear();
+            Console.Title = "Debug Dolphins Bank";
             string logo = @"
  _____         _                     _____          _         _      _               ____                 _    
 |  __ \       | |                   |  __ \        | |       | |    (_)             |  _ \               | |   
@@ -23,7 +24,7 @@ namespace Grouplab_Bank
 ";
 
             Console.WriteLine(logo);
-            Console.Read();
+            
         }
     }
 }
