@@ -18,14 +18,15 @@
         {
             if (user.Admin == true)
             {
+
                 Console.WriteLine("Name: ");
                 string addName = Console.ReadLine();
                 Console.WriteLine("Username: ");
                 string addUserName = Console.ReadLine();
                 Console.WriteLine("Password: ");
                 string addPassword = Console.ReadLine();
-                var User = new User(addName, addUserName, addPassword);
-                Users.Add(user);
+                var newuser = new User(addName, addUserName, addPassword);
+                Users.Add(newuser);
             }
             else
             {
@@ -35,20 +36,20 @@
 
         public void Run()
         {
-            User LoggedUser=Login();
+            User LoggedUser = Login();
             Menu.MainMenu(LoggedUser);
         }
         public User Login()
         {
             bool loggedIn = false;
-            User LoggedUser=new User();
+            User LoggedUser = new User();
             do
             {
                 Utilitys.DisplayLogo();
                 Console.WriteLine("Welcome to Dolphin Bank" +
                     "\n\nLogin\n");
                 Console.Write("User Name: ");
-                var userNameInput=Console.ReadLine();
+                var userNameInput = Console.ReadLine();
                 bool exists = Users.Exists(e => e.Username == userNameInput);
                 if (exists)
                 {
