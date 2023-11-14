@@ -17,7 +17,7 @@
         public void Run()
         {
             User LoggedUser=Login();
-            
+            Menu.MainMenu(LoggedUser);
         }
         public User Login()
         {
@@ -25,7 +25,7 @@
             User LoggedUser=new User();
             do
             {
-                Console.Clear();
+                Utilitys.DiplayLogo();
                 Console.WriteLine("Welcome to Dolphin Bank" +
                     "\n\nLogin\n");
                 Console.Write("User Name: ");
@@ -42,21 +42,21 @@
                     }
                     else
                     {
-                        Console.Clear();
+                        Utilitys.DiplayLogo();
                         Console.WriteLine($"User Name: {LoggedUser.Username}\n\n");
                         Console.Write("Password: ");
                         var userPasswordInput = Console.ReadLine();
                         if (LoggedUser.Password != userPasswordInput)
                         {
                             LoggedUser.FailedLogin++;
-                            Console.Clear();
+                            Utilitys.DiplayLogo();
                             Console.WriteLine("Loggin failed!");
                             Console.WriteLine($"You have {3 - LoggedUser.FailedLogin} attempts left");
                             Console.ReadKey();
                         }
                         else
                         {
-                            Console.Clear();
+                            Utilitys.DiplayLogo();
                             Console.WriteLine($"\nWelcome {LoggedUser.Name}!");
                             LoggedUser.FailedLogin = 0;
                             Console.ReadKey();
