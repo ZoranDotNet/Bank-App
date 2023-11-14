@@ -8,11 +8,7 @@ namespace Grouplab_Bank
 {
     internal static class Utilitys
     {
-        public static void Logo()
-        {
-            Console.Clear();
-            Console.Title = "Debug Dolphins Bank";
-            string logo = @"
+        public static string logo = @"
  _____         _                     _____          _         _      _               ____                 _    
 |  __ \       | |                   |  __ \        | |       | |    (_)             |  _ \               | |   
 | |  | |  ___ | |__   _   _   __ _  | |  | |  ___  | | _ __  | |__   _  _ __   ___  | |_) |  __ _  _ __  | | __
@@ -23,6 +19,10 @@ namespace Grouplab_Bank
                              |___/                    |_|                                                      
 ";
 
+        public static void DiplayLogo()
+        {
+            Console.Clear();
+            Console.Title = "Debug Dolphins Bank";
             Console.WriteLine(logo);
             
         }
