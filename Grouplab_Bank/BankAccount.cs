@@ -19,7 +19,7 @@
             Balance = balance;
             Transactions = new List<Transaction>();
         }
-
+        //This Method just print out all accountNumbers
         private void ListAllBankAccounts(User user)
         {
             Console.WriteLine("Your Accounts: ");
@@ -47,7 +47,7 @@
                 {
                     Console.WriteLine("Try again...");
                 }
-
+                //We find the matching AccountNumber from userinput
                 var selectedAccount = user.BankAccounts.FirstOrDefault(x => x.AccountNumber == userAccountInput);
 
                 if (selectedAccount != null)
@@ -76,7 +76,7 @@
                 {
                     Console.WriteLine("Try again...");
                 }
-                //gives us the first account on the list
+                //gives us the first account in the list(should only be 1)
                 var account = user.BankAccounts.FirstOrDefault();
 
                 if (account != null)
