@@ -82,11 +82,11 @@ namespace Grouplab_Bank
             while (!isSelected)
             {
                 Console.SetCursorPosition(left, top);
-                Console.WriteLine($"{(option == 1 ? decorator : "  ")}1 {option1}\u001b[34m");
-                Console.WriteLine($"{(option == 2 ? decorator : "  ")}2 {option2}\u001b[34m");
-                Console.WriteLine($"{(option == 3 ? decorator : "  ")}3 {option3}\u001b[34m");
-                Console.WriteLine($"{(option == 4 ? decorator : "  ")}4 {option4}\u001b[34m");
-                Console.WriteLine($"{(option == 5 ? decorator : "  ")}5 {option5}\u001b[34m");
+                Console.WriteLine($"{(option == 1 ? decorator : "   ")}1 {option1}\u001b[34m");
+                Console.WriteLine($"{(option == 2 ? decorator : "   ")}2 {option2}\u001b[34m");
+                Console.WriteLine($"{(option == 3 ? decorator : "   ")}3 {option3}\u001b[34m");
+                Console.WriteLine($"{(option == 4 ? decorator : "   ")}4 {option4}\u001b[34m");
+                Console.WriteLine($"{(option == 5 ? decorator : "   ")}5 {option5}\u001b[34m");
 
                 key = Console.ReadKey(false);
                 switch (key.Key)
@@ -120,10 +120,10 @@ namespace Grouplab_Bank
             while (!isSelected)
             {
                 Console.SetCursorPosition(left, top);
-                Console.WriteLine($"{(option == 1 ? decorator : "  ")}1 {option1}\u001b[34m");
-                Console.WriteLine($"{(option == 2 ? decorator : "  ")}2 {option2}\u001b[34m");
-                Console.WriteLine($"{(option == 3 ? decorator : "  ")}3 {option3}\u001b[34m");
-                Console.WriteLine($"{(option == 4 ? decorator : "  ")}4 {option4}\u001b[34m");
+                Console.WriteLine($"{(option == 1 ? decorator : "   ")}1 {option1}\u001b[34m");
+                Console.WriteLine($"{(option == 2 ? decorator : "   ")}2 {option2}\u001b[34m");
+                Console.WriteLine($"{(option == 3 ? decorator : "   ")}3 {option3}\u001b[34m");
+                Console.WriteLine($"{(option == 4 ? decorator : "   ")}4 {option4}\u001b[34m");
 
                 key = Console.ReadKey(false);
                 switch (key.Key)
