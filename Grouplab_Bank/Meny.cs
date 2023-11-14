@@ -19,7 +19,10 @@ namespace Grouplab_Bank
                     switch (option)
                     {
                         case 1:
-                            //Balance
+                            Utilitys.DisplayLogo();
+                            var balance = new BankAccount();
+                            balance.GetBalance(user);
+                            MainMenu(user);
                             break;
                         case 2://AccountInfo
                             break;
@@ -42,12 +45,17 @@ namespace Grouplab_Bank
                     switch (option)
                     {
                         case 1:
+                            Utilitys.DisplayLogo();
+                            var deposit = new BankAccount();
+                            deposit.MakeDeposit(user);
+                            MainMenu(user);
                             break;
                         case 2:
                             break;
                         case 3:
                             break;
                         case 4:
+                            MainMenu(user);
                             break;
                     }
                     break;
@@ -74,6 +82,7 @@ namespace Grouplab_Bank
                         case 3:
                             break;
                         case 4:
+                            MainMenu(user);
                             break;
                     }
                     break;
