@@ -4,7 +4,7 @@
     {
         public User? Owner { get; set; }
         public string? AccountNumber { get; set; }
-        public decimal Balance { get; set; }
+        public decimal Balance { get; set; } = 0;
         public List<Transaction>? Transactions { get; set; }
 
         public BankAccount()
@@ -19,6 +19,15 @@
             Balance = balance;
             Transactions = new List<Transaction>();
         }
+
+        public void AddAccount(User user)
+        {
+            Random random = new Random();
+            string accountNr = Convert.ToString(random.Next(100000, 999999));
+            BankAccount bankAccount = new BankAccount(Owner = user, AccountNumber = accountNr, Balance = 0);
+            user.BankAccounts.Add(bankAccount);
+        }
+
         //This Method just print out all accountNumbers
         private void ListAllBankAccounts(User user)
         {
