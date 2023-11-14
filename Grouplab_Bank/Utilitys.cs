@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Grouplab_Bank
+﻿namespace Grouplab_Bank
 {
     internal static class Utilitys
     {
@@ -19,12 +13,12 @@ namespace Grouplab_Bank
                              |___/                    |_|                                                      
 ";
 
-        public static void DiplayLogo()
+        public static void DisplayLogo()
         {
             Console.Clear();
             Console.Title = "Debug Dolphins Bank";
             Console.WriteLine(logo);
-            
+
         }
     }
 }
