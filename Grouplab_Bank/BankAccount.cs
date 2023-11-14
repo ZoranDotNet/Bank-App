@@ -26,6 +26,7 @@
             string accountNr = Convert.ToString(random.Next(100000, 999999));
             BankAccount bankAccount = new BankAccount(Owner = user, AccountNumber = accountNr, Balance = 0);
             user.BankAccounts.Add(bankAccount);
+
         }
 
         //This Method just print out all accountNumbers

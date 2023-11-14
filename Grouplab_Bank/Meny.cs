@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace Grouplab_Bank
 {
@@ -28,6 +23,11 @@ namespace Grouplab_Bank
                         case 2:
                             break;
                         case 3:
+                            Utilitys.DisplayLogo();
+                            BankAccount account = new BankAccount();
+                            account.AddAccount(user);
+                            Console.ReadKey();
+
                             break;
                         case 4:
                             break;
@@ -37,7 +37,7 @@ namespace Grouplab_Bank
                 case 2:
                     Utilitys.DisplayLogo();
                     Console.WriteLine("Pay & Transfer\u001b[34m");
-                    option = BankMenu("Pay","Transfer","Deposit","Withdraw");
+                    option = BankMenu("Pay", "Transfer", "Deposit", "Withdraw");
                     switch (option)
                     {
                         case 1:
@@ -57,7 +57,10 @@ namespace Grouplab_Bank
                     break;
                 case 4:
                     Utilitys.DisplayLogo();
-                    Console.WriteLine("Add user");
+                    Console.WriteLine("Name of new User ");
+                    Bank b = new Bank();
+                    b.AddUser(user);
+                    Console.ReadKey();
                     break;
 
                 case 5:
