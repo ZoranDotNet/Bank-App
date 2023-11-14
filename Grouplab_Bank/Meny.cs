@@ -22,11 +22,11 @@ namespace Grouplab_Bank
             while (!isSelected)
             {
                 Console.SetCursorPosition(left, top);
-                Console.WriteLine($"{(option == 1 ? decorator : " ")}1 Bank accounts info\u001b[34m");
-                Console.WriteLine($"{(option == 2 ? decorator : " ")}2 Pay & Transfer\u001b[34m");
-                Console.WriteLine($"{(option == 3 ? decorator : " ")}3 Loan\u001b[34m");
-                Console.WriteLine($"{(option == 4 ? decorator : " ")}4 Add user\u001b[34m");
-                Console.WriteLine($"{(option == 5 ? decorator : " ")}5 Log out\u001b[34m");
+                Console.WriteLine($"{(option == 1 ? decorator : "  ")}1 Bank accounts info\u001b[34m");
+                Console.WriteLine($"{(option == 2 ? decorator : "  ")}2 Pay & Transfer\u001b[34m");
+                Console.WriteLine($"{(option == 3 ? decorator : "  ")}3 Loan\u001b[34m");
+                Console.WriteLine($"{(option == 4 ? decorator : "  ")}4 Add user\u001b[34m");
+                Console.WriteLine($"{(option == 5 ? decorator : "  ")}5 Log out\u001b[34m");
 
                 key = Console.ReadKey(false);
                 switch (key.Key)
