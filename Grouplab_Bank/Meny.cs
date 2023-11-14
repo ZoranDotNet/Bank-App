@@ -11,14 +11,14 @@ namespace Grouplab_Bank
     {
         internal static void MainMenu(User user)
         {
-            Utilitys.DiplayLogo();
+            Utilitys.DisplayLogo();
             int option = BankMenu("Bank accounts info", "Pay & Transfer", "Loan", "Add user", "Log out");
 
             switch (option)
             {
 
                 case 1:
-                    Utilitys.DiplayLogo();
+                    Utilitys.DisplayLogo();
                     Console.WriteLine($"Bank accounts\u001b[34m");
                     option = BankMenu("Balance", "Transaction", "Open a new account", "Go back to main menu");
                     switch (option)
@@ -35,7 +35,7 @@ namespace Grouplab_Bank
                     break;
 
                 case 2:
-                    Utilitys.DiplayLogo();
+                    Utilitys.DisplayLogo();
                     Console.WriteLine("Pay & Transfer\u001b[34m");
                     option = BankMenu("Pay","Transfer","Deposit","Withdraw");
                     switch (option)
@@ -52,16 +52,16 @@ namespace Grouplab_Bank
                     break;
 
                 case 3:
-                    Utilitys.DiplayLogo();
+                    Utilitys.DisplayLogo();
                     Console.WriteLine("Loan");
                     break;
                 case 4:
-                    Utilitys.DiplayLogo();
+                    Utilitys.DisplayLogo();
                     Console.WriteLine("Add user");
                     break;
 
                 case 5:
-                    Utilitys.DiplayLogo();
+                    Utilitys.DisplayLogo();
                     Console.WriteLine("Goodbye, you will now be logged out ");
                     break;
 
