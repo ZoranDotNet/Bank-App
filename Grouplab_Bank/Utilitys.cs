@@ -2,6 +2,7 @@
 {
     internal static class Utilitys
     {
+
         public static string logo = @"
  _____         _                     _____          _         _      _               ____                 _    
 |  __ \       | |                   |  __ \        | |       | |    (_)             |  _ \               | |   
@@ -18,6 +19,7 @@
             Console.Clear();
             Console.Title = "Debug Dolphins Bank";
             Console.WriteLine(logo);
+            Console.ForegroundColor = ConsoleColor.Green;
 
         }
     }

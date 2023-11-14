@@ -22,10 +22,15 @@
 
         public void AddAccount(User user)
         {
+            Utilitys.DisplayLogo();
+            Console.ForegroundColor = ConsoleColor.Green;
             Random random = new Random();
             string accountNr = Convert.ToString(random.Next(100000, 999999));
             BankAccount bankAccount = new BankAccount(Owner = user, AccountNumber = accountNr, Balance = 0);
             user.BankAccounts.Add(bankAccount);
+
+            Console.WriteLine("New BankAccount approved");
+            Console.ReadKey();
 
         }
 
@@ -42,13 +47,14 @@
 
         public void MakeDeposit(User user)
         {
+            Console.ForegroundColor = ConsoleColor.Green;
             //if user have more than 1 bankaccount
             if (user.BankAccounts.Count > 1)
             {
                 Utilitys.DisplayLogo();
                 ListAllBankAccounts(user);
 
-                Console.WriteLine("\nWich Account do you want to make your Deposit To ");
+                Console.Write("\nWich Account do you want to make your Deposit To ");
                 string userAccountInput = Console.ReadLine();
 
                 Console.WriteLine("\nHow much do you want to Deposit");
@@ -78,8 +84,8 @@
                     Console.WriteLine("\nYou have no BankAccount ");
                 }
 
-                Utilitys.DisplayLogo();
-                Console.WriteLine("\nHow much would You like to Deposit.");
+
+                Console.Write("\nHow much would You like to Deposit. ");
                 decimal amount;
 
                 while (!decimal.TryParse(Console.ReadLine(), out amount))
@@ -97,7 +103,28 @@
             }
         }
 
+        public void GetBalance(User user)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            if (user.BankAccounts.Count == 0)
+            {
+                Console.WriteLine("You have no BankAccount");
+                Console.ReadKey();
+            }
+            else
+            {
+                Console.WriteLine("*************************************");
+                Console.WriteLine("* AccountNr **  Balance  **  Owner  *");
+                Console.WriteLine("*************************************");
+                foreach (var item in user.BankAccounts)
+                {
+                    Console.WriteLine($"*  {item.AccountNumber}      {item.Balance} Sek   {item.Owner.Name}");
+                    Console.WriteLine("*************************************");
+                }
 
+                Console.ReadKey();
+            }
+        }
 
     }
 }
