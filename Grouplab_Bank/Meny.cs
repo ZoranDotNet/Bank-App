@@ -11,14 +11,14 @@ namespace Grouplab_Bank
     {
         internal static void MainMenu(User user)
         {
-            Utilitys.DiplayLogo();
+            Utilitys.DisplayLogo();
             int option = BankMenu("Bank accounts info", "Pay & Transfer", "Loan", "Add user", "Log out");
 
             switch (option)
             {
 
                 case 1:
-                    Utilitys.DiplayLogo();
+                    Utilitys.DisplayLogo();
                     Console.WriteLine($"Bank accounts\u001b[34m");
                     option = BankMenu("Balance", "Transaction", "Open a new account", "Go back to main menu");
                     switch (option)
@@ -35,7 +35,7 @@ namespace Grouplab_Bank
                     break;
 
                 case 2:
-                    Utilitys.DiplayLogo();
+                    Utilitys.DisplayLogo();
                     Console.WriteLine("Pay & Transfer\u001b[34m");
                     option = BankMenu("Pay","Transfer","Deposit","Withdraw");
                     switch (option)
@@ -52,16 +52,16 @@ namespace Grouplab_Bank
                     break;
 
                 case 3:
-                    Utilitys.DiplayLogo();
+                    Utilitys.DisplayLogo();
                     Console.WriteLine("Loan");
                     break;
                 case 4:
-                    Utilitys.DiplayLogo();
+                    Utilitys.DisplayLogo();
                     Console.WriteLine("Add user");
                     break;
 
                 case 5:
-                    Utilitys.DiplayLogo();
+                    Utilitys.DisplayLogo();
                     Console.WriteLine("Goodbye, you will now be logged out ");
                     break;
 
@@ -82,11 +82,11 @@ namespace Grouplab_Bank
             while (!isSelected)
             {
                 Console.SetCursorPosition(left, top);
-                Console.WriteLine($"{(option == 1 ? decorator : "  ")}1 {option1}\u001b[34m");
-                Console.WriteLine($"{(option == 2 ? decorator : "  ")}2 {option2}\u001b[34m");
-                Console.WriteLine($"{(option == 3 ? decorator : "  ")}3 {option3}\u001b[34m");
-                Console.WriteLine($"{(option == 4 ? decorator : "  ")}4 {option4}\u001b[34m");
-                Console.WriteLine($"{(option == 5 ? decorator : "  ")}5 {option5}\u001b[34m");
+                Console.WriteLine($"{(option == 1 ? decorator : "   ")}1 {option1}\u001b[34m");
+                Console.WriteLine($"{(option == 2 ? decorator : "   ")}2 {option2}\u001b[34m");
+                Console.WriteLine($"{(option == 3 ? decorator : "   ")}3 {option3}\u001b[34m");
+                Console.WriteLine($"{(option == 4 ? decorator : "   ")}4 {option4}\u001b[34m");
+                Console.WriteLine($"{(option == 5 ? decorator : "   ")}5 {option5}\u001b[34m");
 
                 key = Console.ReadKey(false);
                 switch (key.Key)
@@ -120,10 +120,10 @@ namespace Grouplab_Bank
             while (!isSelected)
             {
                 Console.SetCursorPosition(left, top);
-                Console.WriteLine($"{(option == 1 ? decorator : "  ")}1 {option1}\u001b[34m");
-                Console.WriteLine($"{(option == 2 ? decorator : "  ")}2 {option2}\u001b[34m");
-                Console.WriteLine($"{(option == 3 ? decorator : "  ")}3 {option3}\u001b[34m");
-                Console.WriteLine($"{(option == 4 ? decorator : "  ")}4 {option4}\u001b[34m");
+                Console.WriteLine($"{(option == 1 ? decorator : "   ")}1 {option1}\u001b[34m");
+                Console.WriteLine($"{(option == 2 ? decorator : "   ")}2 {option2}\u001b[34m");
+                Console.WriteLine($"{(option == 3 ? decorator : "   ")}3 {option3}\u001b[34m");
+                Console.WriteLine($"{(option == 4 ? decorator : "   ")}4 {option4}\u001b[34m");
 
                 key = Console.ReadKey(false);
                 switch (key.Key)
