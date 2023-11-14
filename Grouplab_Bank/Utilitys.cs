@@ -18,6 +18,7 @@
             Console.Clear();
             Console.Title = "Debug Dolphins Bank";
             Console.WriteLine(logo);
+            Console.ForegroundColor = ConsoleColor.White;
 
         }
     }

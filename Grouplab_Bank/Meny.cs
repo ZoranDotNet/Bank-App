@@ -7,37 +7,38 @@ namespace Grouplab_Bank
         internal static void MainMenu(User user)
         {
             Utilitys.DisplayLogo();
-            int option = BankMenu("Bank accounts info", "Pay & Transfer", "Loan", "Add user", "Log out");
+            int option = BankMenu("Account info", "Transactions", "Loan", "Administration", "Log out");
 
             switch (option)
             {
 
                 case 1:
                     Utilitys.DisplayLogo();
-                    Console.WriteLine($"Bank accounts\u001b[34m");
-                    option = BankMenu("Balance", "Transaction", "Open a new account", "Go back to main menu");
+                    Console.WriteLine($"\u001b[34mBank accounts");
+                    option = BankMenu("Balance", "Account Info", "Transaction History", "Open New Account");
                     switch (option)
                     {
                         case 1:
+                            //Balance
                             break;
-                        case 2:
+                        case 2://AccountInfo
                             break;
-                        case 3:
-                            Utilitys.DisplayLogo();
-                            BankAccount account = new BankAccount();
-                            account.AddAccount(user);
-                            Console.ReadKey();
+                        case 3://Transaction History
 
                             break;
                         case 4:
+                            Utilitys.DisplayLogo();
+                            BankAccount account = new BankAccount();
+                            account.AddAccount(user);
+                            MainMenu(user);
                             break;
                     }
                     break;
 
                 case 2:
                     Utilitys.DisplayLogo();
-                    Console.WriteLine("Pay & Transfer\u001b[34m");
-                    option = BankMenu("Pay", "Transfer", "Deposit", "Withdraw");
+                    Console.WriteLine("\u001b[34mTransactions");
+                    option = BankMenu("Deposit", "Withdraw", "Transfer", "Back To Main Menu");
                     switch (option)
                     {
                         case 1:
@@ -53,15 +54,30 @@ namespace Grouplab_Bank
 
                 case 3:
                     Utilitys.DisplayLogo();
-                    Console.WriteLine("Loan");
+                    Console.WriteLine("\u001b[34mLoan");
+
                     break;
                 case 4:
                     Utilitys.DisplayLogo();
-                    Console.WriteLine("Name of new User ");
-                    Bank b = new Bank();
-                    b.AddUser(user);
-                    Console.ReadKey();
+                    Console.WriteLine("\u001b[34mAdministration");
+                    option = BankMenu("Add new User", "Set Exchange Rate", " ", "Back To Main Menu");
+                    switch (option)
+                    {
+                        case 1:
+                            Bank b = new Bank();
+                            b.AddUser(user);
+                            MainMenu(user);
+                            break;
+
+                        case 2:
+                            break;
+                        case 3:
+                            break;
+                        case 4:
+                            break;
+                    }
                     break;
+
 
                 case 5:
                     Utilitys.DisplayLogo();
@@ -75,8 +91,8 @@ namespace Grouplab_Bank
         {
             Console.OutputEncoding = Encoding.UTF8;
             Console.CursorVisible = false;
-            Console.WriteLine("\nUse ⬆️ and ⬇️ to navigate and press \u001b[32mEnter / Return\u001b[0m to select:");
-            Console.WriteLine("Please make a choice\n ");
+            Console.WriteLine("\n\u001b[34mUse ⬆️ and ⬇️ to navigate and press \u001b[32mEnter / Return\u001b[34m to select:");
+            Console.WriteLine("\u001b[34mPlease make a choice\n ");
             (int left, int top) = Console.GetCursorPosition();
             int option = 1;
             var decorator = "✅ \u001b[32m";
@@ -113,8 +129,8 @@ namespace Grouplab_Bank
         {
             Console.OutputEncoding = Encoding.UTF8;
             Console.CursorVisible = false;
-            Console.WriteLine("\nUse ⬆️ and ⬇️ to navigate and press \u001b[32mEnter / Return\u001b[0m to select:");
-            Console.WriteLine("Please make a choice\n ");
+            Console.WriteLine("\nUse ⬆️ and ⬇️ to navigate and press \u001b[32mEnter / Return\u001b[34m to select:");
+            Console.WriteLine("\u001b[34mPlease make a choice\n ");
             (int left, int top) = Console.GetCursorPosition();
             int option = 1;
             var decorator = "✅ \u001b[32m";
