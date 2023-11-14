@@ -1,4 +1,6 @@
-﻿namespace Grouplab_Bank
+﻿using System.Security.Cryptography.X509Certificates;
+
+namespace Grouplab_Bank
 {
     internal class User
     {
@@ -33,5 +35,6 @@
             BankAccounts = new List<BankAccount>();
         }
 
+     
     }
 }
