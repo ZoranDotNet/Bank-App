@@ -14,6 +14,25 @@
 
         }
 
+        public void AddUser(User user)
+        {
+            if (user.Admin == true)
+            {
+                Console.WriteLine("Name: ");
+                string addName = Console.ReadLine();
+                Console.WriteLine("Username: ");
+                string addUserName = Console.ReadLine();
+                Console.WriteLine("Password: ");
+                string addPassword = Console.ReadLine();
+                var User = new User(addName, addUserName, addPassword);
+                Users.Add(user);
+            }
+            else
+            {
+                Console.WriteLine("You have to be Admin to create new users");
+            }
+        }
+
         public void Run()
         {
             User LoggedUser=Login();
