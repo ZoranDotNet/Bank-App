@@ -35,7 +35,7 @@
             //if user have more than 1 bankaccount
             if (user.BankAccounts.Count > 1)
             {
-                Utilitys.Logo();
+                Utilitys.DisplayLogo();
                 ListAllBankAccounts(user);
 
                 Console.WriteLine("\nWich Account do you want to make your Deposit To ");
@@ -68,7 +68,7 @@
                     Console.WriteLine("\nYou have no BankAccount ");
                 }
 
-                Utilitys.Logo();
+                Utilitys.DisplayLogo();
                 Console.WriteLine("\nHow much would You like to Deposit.");
                 decimal amount;
 
@@ -86,6 +86,8 @@
 
             }
         }
+
+
 
     }
 }
