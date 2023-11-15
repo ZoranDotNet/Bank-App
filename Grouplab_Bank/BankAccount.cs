@@ -1,6 +1,6 @@
 ﻿namespace Grouplab_Bank
 {
-    internal class BankAccount
+    internal partial class BankAccount
     {
         public User? Owner { get; set; }
         public string? AccountNumber { get; set; }
