@@ -10,7 +10,7 @@ namespace Grouplab_Bank
     {
         public void MakeWithdraw(User user)
         {
-            if (user.BankAccounts == null)
+            if (user.BankAccounts.Count == 0)
             {
                 Console.WriteLine("\nYou have no BankAccount ");
                 Console.ReadKey();
@@ -29,19 +29,28 @@ namespace Grouplab_Bank
                     Console.WriteLine("Try again...");
                 }
                 var selectedAccount = user.BankAccounts.FirstOrDefault(x => x.AccountNumber == thisAccount);
-                
-                if (selectedAccount.Balance > withdrawAmount)
+               
+                if (selectedAccount != null)
                 {
-                    selectedAccount.Balance -= withdrawAmount;
-                    Console.WriteLine($"You have successfully withdrawn {withdrawAmount} from account {selectedAccount.AccountNumber}." +
-                        $"\nThe balance of account {selectedAccount.AccountNumber} is now {selectedAccount.Balance.ToString()}");
-                    Console.ReadKey();
+                    if (selectedAccount.Balance > withdrawAmount)
+                    {
+                        selectedAccount.Balance -= withdrawAmount;
+                        Console.WriteLine($"You have successfully withdrawn {withdrawAmount} from account {selectedAccount.AccountNumber}." +
+                            $"\nThe balance of account {selectedAccount.AccountNumber} is now {selectedAccount.Balance.ToString()}");
+                        Console.ReadKey();
+                    }
+                    else
+                    {
+                        Console.WriteLine($"You dont have enough money in account {selectedAccount}");
+                        Console.ReadKey();
+                    }
                 }
                 else
                 {
-                    Console.WriteLine($"You dont have enough money in account {selectedAccount}");
+                    Console.WriteLine("Account not found");
                     Console.ReadKey();
                 }
+               
             }
             else
             {
@@ -54,17 +63,26 @@ namespace Grouplab_Bank
                 }
                 var onlyAccount = user.BankAccounts.FirstOrDefault();
                
-                if(onlyAccount.Balance > amountToWithdraw)
+                if (onlyAccount != null)
                 {
-                    onlyAccount.Balance -= amountToWithdraw;
-                    Console.WriteLine($"You have successfully withdrawn {amountToWithdraw} from account {onlyAccount.AccountNumber}." +
-                       $"\nThe balance of account {onlyAccount.AccountNumber} is now {onlyAccount.Balance.ToString()}");
-                    Console.ReadKey();
+                    if (onlyAccount.Balance > amountToWithdraw)
+                    {
+                        onlyAccount.Balance -= amountToWithdraw;
+                        Console.WriteLine($"You have successfully withdrawn {amountToWithdraw} from account {onlyAccount.AccountNumber}." +
+                           $"\nThe balance of account {onlyAccount.AccountNumber} is now {onlyAccount.Balance.ToString()}");
+                        Console.ReadKey();
 
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Yoy dont have enough money in account {onlyAccount.AccountNumber}");
+                        Console.ReadKey();
+                    }
                 }
                 else
                 {
-                    Console.WriteLine($"Yoy dont have enough money in account {onlyAccount.AccountNumber}");
+                    Console.WriteLine("Account not found");
+                    Console.ReadKey();
                 }
             }
         }
