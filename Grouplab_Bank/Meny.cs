@@ -308,7 +308,7 @@ namespace Grouplab_Bank
             /*
             Creates a selectable list of accounts.
             Call method with -> BankAccount selectedAccount = SelectAccount(user); <-
-            After a null check and if (List.Count > 1)
+            After a null check!
             */
         {
             int? count = user.BankAccounts.Count();
