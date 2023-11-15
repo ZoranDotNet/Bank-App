@@ -1,5 +1,4 @@
-﻿using System.Security.Cryptography.X509Certificates;
-using System.Text;
+﻿using System.Text;
 
 namespace Grouplab_Bank
 {
@@ -9,7 +8,7 @@ namespace Grouplab_Bank
         {
             bool RunMenu = true;
             bool displayMain = true;
-            bool displaySub = true; 
+            bool displaySub = true;
             do
             {
                 Utilities.DisplayLogo();
@@ -23,7 +22,7 @@ namespace Grouplab_Bank
                         {
                             Utilities.DisplayLogo();
                             Console.WriteLine($"\u001b[34mBank accounts");
-                            option = BankMenu("Balance", "Account Info", "Transaction History", "Open New Account","Return to Main Menu");
+                            option = BankMenu("Balance", "Account Info", "Transaction History", "Open New Account", "Return to Main Menu");
                             switch (option)
                             {
                                 case 1:
@@ -47,7 +46,7 @@ namespace Grouplab_Bank
                                     displaySub = false;
                                     break;
                             }
-                        } while (displaySub==true);
+                        } while (displaySub == true);
                         break;
 
                     case 2:
@@ -101,13 +100,13 @@ namespace Grouplab_Bank
                                     displaySub = false;
                                     break;
                             }
-                        } while (displaySub==true);
+                        } while (displaySub == true);
                         break;
 
 
                     case 5:
                         Utilities.DisplayLogo();
-                        option = BankMenu("Return To Login","Exit");
+                        option = BankMenu("Return To Login", "Exit");
                         switch (option)
                         {
                             case 1:
@@ -323,15 +322,15 @@ namespace Grouplab_Bank
             Console.CursorVisible = true;
             return option;
         }
-        internal static BankAccount SelectAccount(User user) 
-            /*
-            Creates a selectable list of accounts using BankMenu overloads.
-            Call method with -> BankAccount selectedAccount = Menu.SelectAccount(user); <-
-            After checking that List.Count is not 0.
-            */
+        internal static BankAccount SelectAccount(User user)
+        /*
+        Creates a selectable list of accounts using BankMenu overloads.
+        Call method with -> BankAccount selectedAccount = Menu.SelectAccount(user); <-
+        After checking that List.Count is not 0.
+        */
         {
             int? count = user.BankAccounts.Count();
-            int option=0;
+            int option = 0;
             BankAccount selectedAccount;
             if (count == 1)
             {
@@ -339,19 +338,19 @@ namespace Grouplab_Bank
             }
             else if (count == 2)
             {
-                option=BankMenu(user.BankAccounts[0].AccountNumber, user.BankAccounts[1].AccountNumber);
+                option = BankMenu(user.BankAccounts[0].AccountNumber, user.BankAccounts[1].AccountNumber);
             }
             else if (count == 3)
             {
-                option=BankMenu(user.BankAccounts[0].AccountNumber, user.BankAccounts[1].AccountNumber, user.BankAccounts[2].AccountNumber);
+                option = BankMenu(user.BankAccounts[0].AccountNumber, user.BankAccounts[1].AccountNumber, user.BankAccounts[2].AccountNumber);
             }
             else if (count == 4)
             {
-                option=BankMenu(user.BankAccounts[0].AccountNumber, user.BankAccounts[1].AccountNumber, user.BankAccounts[2].AccountNumber, user.BankAccounts[3].AccountNumber);
+                option = BankMenu(user.BankAccounts[0].AccountNumber, user.BankAccounts[1].AccountNumber, user.BankAccounts[2].AccountNumber, user.BankAccounts[3].AccountNumber);
             }
             else if (count == 5)
             {
-                option=BankMenu(user.BankAccounts[0].AccountNumber, user.BankAccounts[1].AccountNumber, user.BankAccounts[2].AccountNumber, user.BankAccounts[3].AccountNumber, user.BankAccounts[4].AccountNumber);
+                option = BankMenu(user.BankAccounts[0].AccountNumber, user.BankAccounts[1].AccountNumber, user.BankAccounts[2].AccountNumber, user.BankAccounts[3].AccountNumber, user.BankAccounts[4].AccountNumber);
             }
 
             selectedAccount = user.BankAccounts[option - 1];

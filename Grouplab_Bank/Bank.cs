@@ -1,10 +1,8 @@
-﻿using System.Security.Principal;
-
-namespace Grouplab_Bank
+﻿namespace Grouplab_Bank
 {
     internal class Bank
     {
-        
+
         public List<User> Users { get; set; }
 
 
@@ -58,8 +56,8 @@ namespace Grouplab_Bank
             do
             {
                 User LoggedUser = Login();
-                runMenu=Menu.MainMenu(LoggedUser);
-            } while (runMenu==true);
+                runMenu = Menu.MainMenu(LoggedUser);
+            } while (runMenu == true);
         }
         public User Login()
         {
