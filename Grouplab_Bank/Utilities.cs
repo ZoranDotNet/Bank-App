@@ -1,6 +1,6 @@
 ﻿namespace Grouplab_Bank
 {
-    internal static class Utilitys
+    internal static class Utilities
     {
 
         public static string logo = @"
@@ -17,9 +17,11 @@
         public static void DisplayLogo()
         {
             Console.Clear();
+            Console.Write("\u001b[33m");
             Console.Title = "Debug Dolphins Bank";
             Console.WriteLine(logo);
             Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("\u001b[34m");
 
         }
     }

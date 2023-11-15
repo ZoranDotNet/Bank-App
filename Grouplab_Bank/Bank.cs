@@ -36,8 +36,11 @@
 
         public void Run()
         {
-            User LoggedUser = Login();
-            Menu.MainMenu(LoggedUser);
+            do
+            {
+                User LoggedUser = Login();
+                Menu.MainMenu(LoggedUser);
+            } while (true);
         }
         public User Login()
         {
@@ -45,38 +48,40 @@
             User LoggedUser = new User();
             do
             {
-                Utilitys.DisplayLogo();
-                Console.WriteLine("Welcome to Dolphin Bank" +
+                Utilities.DisplayLogo();
+                Console.WriteLine("\u001b[34mWelcome to Debug Dolphins Bank" +
                     "\n\nLogin\n");
-                Console.Write("User Name: ");
+                Console.Write("\u001b[32mUser Name: \x1b[7m");
                 var userNameInput = Console.ReadLine();
+                Console.Write("\x1b[27m");
                 bool exists = Users.Exists(e => e.Username == userNameInput);
                 if (exists)
                 {
                     LoggedUser = Users.Find(e => e.Username == userNameInput);
                     if (LoggedUser.FailedLogin >= 3)
                     {
-                        Console.WriteLine("Account Locked!\nContact customer support");
+                        Console.WriteLine("\x1b[91mAccount Locked!\nContact customer support");
                         LoggedUser.IsLocked = true;
                         Console.ReadKey();
                     }
                     else
                     {
-                        Utilitys.DisplayLogo();
-                        Console.WriteLine($"User Name: {LoggedUser.Username}\n\n");
-                        Console.Write("Password: ");
+                        Utilities.DisplayLogo();
+                        Console.WriteLine($"\u001b[34mUser Name: {LoggedUser.Username}\n\n");
+                        Console.Write("\u001b[32mPassword: \u001b[7m");
                         var userPasswordInput = Console.ReadLine();
+                        Console.Write("\x1b[27m");
                         if (LoggedUser.Password != userPasswordInput)
                         {
                             LoggedUser.FailedLogin++;
-                            Utilitys.DisplayLogo();
-                            Console.WriteLine("Loggin failed!");
+                            Utilities.DisplayLogo();
+                            Console.WriteLine("\x1b[91mLoggin failed!");
                             Console.WriteLine($"You have {3 - LoggedUser.FailedLogin} attempts left");
                             Console.ReadKey();
                         }
                         else
                         {
-                            Utilitys.DisplayLogo();
+                            Utilities.DisplayLogo();
                             Console.WriteLine($"\nWelcome {LoggedUser.Name}!");
                             LoggedUser.FailedLogin = 0;
                             Console.ReadKey();

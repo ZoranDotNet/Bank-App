@@ -31,7 +31,8 @@
 
         public void AddAccount(User user)
         {
-            Utilitys.DisplayLogo();
+
+            Utilities.DisplayLogo();
             Random random = new Random();
             string accountNr = Convert.ToString(random.Next(100000, 999999));
             BankAccount bankAccount = new BankAccount(Owner = user, AccountNumber = accountNr, Balance = 0);
@@ -73,7 +74,7 @@
             //if user have more than 1 bankaccount
             if (user.BankAccounts.Count > 1)
             {
-                Utilitys.DisplayLogo();
+                Utilities.DisplayLogo();
                 ListAllBankAccounts(user);
 
                 Console.Write("\nWich Account do you want to make your Deposit To ");
