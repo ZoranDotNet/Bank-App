@@ -38,6 +38,12 @@
             Currency = currency;
         }
 
+        private decimal CalculateInterest(double interestRate, decimal amount)
+        {
+            decimal interestToPay = amount * Convert.ToDecimal(interestRate) / 100;
+            return interestToPay;
+        }
+
         public void AddAccount(User user)
         {
             Random random = new Random();
@@ -50,13 +56,19 @@
 
             if (answer == "1")
             {
-
                 string accountNr = Convert.ToString(random.Next(100000, 999999));
                 BankAccount bankAccount = new BankAccount(Owner = user, AccountNumber = accountNr, Balance = 0);
-                user.BankAccounts.Add(bankAccount);
+                if (user.BankAccounts.Count >= 5)
+                {
+                    Console.WriteLine("This Bank only allow a maximum of 5 BankAccounts");
+                }
+                else
+                {
+                    user.BankAccounts.Add(bankAccount);
+                    Console.WriteLine("New BankAccount approved");
+                    Console.ReadKey();
+                }
 
-                Console.WriteLine("New BankAccount approved");
-                Console.ReadKey();
             }
             else if (answer == "2")
             {
@@ -85,12 +97,19 @@
                     Console.WriteLine("Invalid answer, please choose option 1 to 3");
                     return;
                 }
-                string saveAccount = Convert.ToString(random.Next(100000, 99999));
+                string saveAccount = Convert.ToString(random.Next(100000, 999999));
                 BankAccount savingsAccount = new BankAccount(Owner = user, AccountNumber = saveAccount, Balance = 0, InterestRate = interestRate);
-                user.BankAccounts.Add(savingsAccount);
-                Console.WriteLine($"New Savings Account approved with {interestRate}% rate");
-                Console.ReadKey();
 
+                if (user.BankAccounts.Count >= 5)
+                {
+                    Console.WriteLine("This Bank only allow a maximum of 5 BankAccounts");
+                }
+                else
+                {
+                    user.BankAccounts.Add(savingsAccount);
+                    Console.WriteLine($"New Savings Account approved with {interestRate}% rate");
+                    Console.ReadKey();
+                }
             }
             else
             {
@@ -127,45 +146,32 @@
                 return;
             }
 
-            //if user have more than 1 bankaccount
-            if (user.BankAccounts.Count > 1)
+            Utilities.DisplayLogo();
+            Console.Write("\nWich Account do you want to make your Deposit To\n\n");
+            BankAccount selectedAccount = Menu.SelectAccount(user);
+            Utilities.DisplayLogo();
+            Console.WriteLine("\nHow much do you want to Deposit");
+            decimal depositAmount;
+            while (!decimal.TryParse(Console.ReadLine(), out depositAmount))
             {
-                Utilities.DisplayLogo();
-                Console.Write("\nWich Account do you want to make your Deposit To\n\n");
-                BankAccount selectedAccount = Menu.SelectAccount(user);
-                Console.WriteLine("\nHow much do you want to Deposit");
-                decimal depositAmount;
-                while (!decimal.TryParse(Console.ReadLine(), out depositAmount))
-                {
-                    Console.WriteLine("Try again...");
-                }
+                Console.WriteLine("Try again...");
+            }
 
-                if (selectedAccount != null)
-                {
-                    selectedAccount.Balance += depositAmount;
-                }
-                else
-                {
-                    Console.WriteLine("Could not find Account");
-                    Console.ReadKey();
-                }
+            if (selectedAccount.InterestRate > 0)
+            {
+                decimal interestToPay = CalculateInterest(selectedAccount.InterestRate, depositAmount);
+                Console.WriteLine($"The interest on your Savings Account will be {interestToPay} {selectedAccount.Currency} / year");
+                Console.ReadKey();
+            }
+
+            if (selectedAccount != null)
+            {
+                selectedAccount.Balance += depositAmount;
             }
             else
             {
-                Console.Write("\nHow much would You like to Deposit. ");
-                decimal amount;
-
-                while (!decimal.TryParse(Console.ReadLine(), out amount))
-                {
-                    Console.WriteLine("Try again...");
-                }
-                //gives us the first account in the list(should only be 1)
-                var account = user.BankAccounts.FirstOrDefault();
-
-                if (account != null)
-                {
-                    account.Balance += amount;
-                }
+                Console.WriteLine("Could not find Account");
+                Console.ReadKey();
             }
         }
 
@@ -192,5 +198,99 @@
             }
         }
 
+        public void MakeTransfer(User user)
+        {
+            Console.WriteLine("1 for Transfer to your own Account");
+            Console.WriteLine("2 for Transfer to someone elses Account");
+            string userInput = Console.ReadLine();
+
+            if (userInput == "1")
+            {
+                if (user.BankAccounts.Count < 2)
+                {
+                    Console.WriteLine("\nYou need at least 2 Accounts to make a Transfer");
+                    Console.ReadKey();
+                    return;
+                }
+
+
+                ListAllBankAccounts(user);
+
+                Console.WriteLine("\n\nWich Account do you want to Transfer From ");
+                string accountNrFrom = Console.ReadLine();
+                Console.WriteLine("Wich Account do you want to Transfer To ");
+                string accountNrTo = Console.ReadLine();
+                Console.WriteLine("How much do You want to Transfer ");
+                decimal amount;
+                while (!decimal.TryParse(Console.ReadLine(), out amount))
+                {
+                    Console.Write("Try again.. ");
+                }
+                //finding users Account to Transfer from
+                var accountFrom = user.BankAccounts.FirstOrDefault(x => x.AccountNumber == accountNrFrom);
+                // finding users Account to Transfer to
+                var accountTo = user.BankAccounts.FirstOrDefault(x => x.AccountNumber == accountNrTo);
+
+                //if we find both accounts we proceed otherwisw back to menu
+                if (accountFrom != null && accountTo != null)
+                {
+                    if (accountFrom.Balance >= amount)
+                    {
+                        accountFrom.Balance -= amount;
+
+                        accountTo.Balance += amount;
+                    }
+                    else
+                    {
+                        Console.WriteLine("You do not have sufficient funds in your account");
+                        Console.ReadKey();
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Could not find your account ");
+                    Console.ReadKey();
+                }
+            }
+            else if (userInput == "2")
+            {
+                MakeExternalTransfer(user);
+            }
+            else
+            {
+                Console.WriteLine("Invalid choice ");
+                Console.ReadKey();
+            }
+
+
+
+
+        }
+
+        public void MakeExternalTransfer(User user)
+        {
+            ListAllBankAccounts(user);
+
+            Console.WriteLine("\n\nWich Account do you want to Transfer From ");
+            string accountNrFrom = Console.ReadLine();
+            Console.WriteLine("Wich Account do you want to Transfer To ");
+            string accountNrTo = Console.ReadLine();
+            Console.WriteLine("How much do You want to Transfer ");
+            decimal amount;
+            while (!decimal.TryParse(Console.ReadLine(), out amount))
+            {
+                Console.Write("Try again.. ");
+            }
+
+            //finding users Account to Transfer from
+            var accountFrom = user.BankAccounts.FirstOrDefault(x => x.AccountNumber == accountNrFrom);
+
+
+            Console.WriteLine("Wich AccounNumber do you want to Trasfer To");
+            string accountNr = Console.ReadLine();
+
+            // needs to make a method to find AccountNr that matches another user
+
+        }
     }
 }

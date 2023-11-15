@@ -2,9 +2,7 @@
 {
     internal class Bank
     {
-
         public List<User> Users { get; set; }
-
 
         public Bank()
         {
@@ -12,7 +10,6 @@
 
             var user = new User("Reidar", "admin", "123", true);
             Users.Add(user);
-
         }
 
         public void AddUser(User user)
