@@ -1,7 +1,10 @@
-﻿namespace Grouplab_Bank
+﻿using System.Security.Principal;
+
+namespace Grouplab_Bank
 {
     internal class Bank
     {
+        
         public List<User> Users { get; set; }
 
 
@@ -34,14 +37,29 @@
                 Console.ReadKey();
             }
         }
+        public User? GetUser(string accountNr)
+        {
+            foreach (var user in Users)
+            {
+                foreach (var item in user.BankAccounts)
+                {
+                    if (accountNr == item.AccountNumber)
+                    {
+                        return user;
+                    }
+                }
+            }
+            return null;
+        }
 
         public void Run()
         {
+            bool runMenu;
             do
             {
                 User LoggedUser = Login();
-                Menu.MainMenu(LoggedUser);
-            } while (true);
+                runMenu=Menu.MainMenu(LoggedUser);
+            } while (runMenu==true);
         }
         public User Login()
         {

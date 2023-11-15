@@ -5,8 +5,9 @@ namespace Grouplab_Bank
 {
     public static class Menu
     {
-        internal static void MainMenu(User user)
+        internal static bool MainMenu(User user)
         {
+            bool RunMenu = true;
             bool displayMain = true;
             bool displaySub = true; 
             do
@@ -106,14 +107,32 @@ namespace Grouplab_Bank
 
                     case 5:
                         Utilities.DisplayLogo();
-                        Console.WriteLine("Goodbye, you will now be logged out ");
-                        displayMain = false;
+                        option = BankMenu("Return To Login","Exit");
+                        switch (option)
+                        {
+                            case 1:
+                                Console.WriteLine("Goodbye, you will now be logged out ");
+                                Console.ReadKey();
+                                displayMain = false;
+                                break;
+                            case 2:
+                                Console.WriteLine("Goodbye, closing program");
+                                Console.ReadKey();
+                                RunMenu = false;
+                                displayMain = false;
+                                break;
+                        }
                         break;
 
                 }
             } while (displayMain == true);
+            return RunMenu;
         }
 
+        //BankMenu Prints a menu with options selectable via u/down arrowkey and returns an int with the selected option number 
+        //to use in a switch. BankMenu has overloads that requires inParameters of 2-6 strings wich in turn becomes the selectable options
+        //To call method use -> int x = Menu.BankMenu("option1","option2"(and up to 4 more)); <-
+        //then -> switch (x) case 1: do something...
         public static int BankMenu(string option1, string option2, string option3, string option4, string option5, string option6)
         {
             Console.OutputEncoding = Encoding.UTF8;
@@ -306,9 +325,9 @@ namespace Grouplab_Bank
         }
         internal static BankAccount SelectAccount(User user) 
             /*
-            Creates a selectable list of accounts.
-            Call method with -> BankAccount selectedAccount = SelectAccount(user); <-
-            After a null check!
+            Creates a selectable list of accounts using BankMenu overloads.
+            Call method with -> BankAccount selectedAccount = Menu.SelectAccount(user); <-
+            After checking that List.Count is not 0.
             */
         {
             int? count = user.BankAccounts.Count();
