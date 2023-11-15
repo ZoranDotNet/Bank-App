@@ -6,7 +6,7 @@
         public string? AccountNumber { get; set; }
         public decimal Balance { get; set; } = 0;
         public List<Transaction>? Transactions { get; set; }
-
+        public Currencies Currencie { get; set; } = Currencies.Sek;
         public BankAccount()
         {
 
@@ -18,6 +18,15 @@
             AccountNumber = accountNumber;
             Balance = balance;
             Transactions = new List<Transaction>();
+        }
+
+        public BankAccount(User owner, string accountNumber, decimal balance, Currencies currencie)
+        {
+            Owner = owner;
+            AccountNumber = accountNumber;
+            Balance = balance;
+            Transactions = new List<Transaction>();
+            Currencie = currencie;
         }
 
         public void AddAccount(User user)
