@@ -6,7 +6,7 @@
         public string? AccountNumber { get; set; }
         public decimal Balance { get; set; } = 0;
         public List<Transaction>? Transactions { get; set; }
-
+        public Currencies Currency { get; set; } = Currencies.Sek;
         public BankAccount()
         {
 
@@ -20,10 +20,19 @@
             Transactions = new List<Transaction>();
         }
 
+        public BankAccount(User owner, string accountNumber, decimal balance, Currencies currency)
+        {
+            Owner = owner;
+            AccountNumber = accountNumber;
+            Balance = balance;
+            Transactions = new List<Transaction>();
+            Currency = currency;
+        }
+
         public void AddAccount(User user)
         {
+
             Utilities.DisplayLogo();
-            Console.ForegroundColor = ConsoleColor.Green;
             Random random = new Random();
             string accountNr = Convert.ToString(random.Next(100000, 999999));
             BankAccount bankAccount = new BankAccount(Owner = user, AccountNumber = accountNr, Balance = 0);
@@ -37,17 +46,31 @@
         //This Method just print out all accountNumbers
         private void ListAllBankAccounts(User user)
         {
-            Console.WriteLine("Your Accounts: ");
-
-            foreach (var item in user.BankAccounts)
+            if (user.BankAccounts != null)
             {
-                Console.WriteLine(item.AccountNumber);
+                Console.WriteLine("Your Accounts: ");
+
+                foreach (var item in user.BankAccounts)
+                {
+                    Console.WriteLine(item.AccountNumber);
+                }
+            }
+            else
+            {
+                Console.WriteLine("You have no BankAccount");
+                Console.ReadKey();
             }
         }
 
         public void MakeDeposit(User user)
         {
-            Console.ForegroundColor = ConsoleColor.Green;
+            if (user.BankAccounts.Count == 0)
+            {
+                Console.WriteLine("\nYou have no BankAccount ");
+                Console.ReadKey();
+                return;
+            }
+
             //if user have more than 1 bankaccount
             if (user.BankAccounts.Count > 1)
             {
@@ -75,16 +98,9 @@
                     Console.WriteLine("Could not find Account");
                     Console.ReadKey();
                 }
-
             }
             else
             {
-                if (user.BankAccounts.Count == 0)
-                {
-                    Console.WriteLine("\nYou have no BankAccount ");
-                }
-
-
                 Console.Write("\nHow much would You like to Deposit. ");
                 decimal amount;
 
@@ -99,27 +115,26 @@
                 {
                     account.Balance += amount;
                 }
-
             }
         }
 
         public void GetBalance(User user)
         {
             Console.ForegroundColor = ConsoleColor.Green;
-            if (user.BankAccounts.Count == 0)
+            if (user.BankAccounts == null)
             {
                 Console.WriteLine("You have no BankAccount");
                 Console.ReadKey();
             }
             else
             {
-                Console.WriteLine("*************************************");
-                Console.WriteLine("* AccountNr **  Balance  **  Owner  *");
-                Console.WriteLine("*************************************");
+                Console.WriteLine("****************************************************************");
+                Console.WriteLine("* AccountNr **    Balance     **  Currency  **      Owner      *");
+                Console.WriteLine("****************************************************************");
                 foreach (var item in user.BankAccounts)
                 {
-                    Console.WriteLine($"*  {item.AccountNumber}      {item.Balance} Sek   {item.Owner.Name}");
-                    Console.WriteLine("*************************************");
+                    Console.WriteLine($"*  {item.AccountNumber,-8} **  {item.Balance.ToString("N2"),-13} **    {item.Currency,-7} **    {item.Owner.Name,-10}   *");
+                    Console.WriteLine("****************************************************************");
                 }
 
                 Console.ReadKey();
