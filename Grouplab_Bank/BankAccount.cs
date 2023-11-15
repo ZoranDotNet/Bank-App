@@ -131,19 +131,14 @@
             if (user.BankAccounts.Count > 1)
             {
                 Utilities.DisplayLogo();
-                ListAllBankAccounts(user);
-
-                Console.Write("\nWich Account do you want to make your Deposit To ");
-                string userAccountInput = Console.ReadLine();
-
+                Console.Write("\nWich Account do you want to make your Deposit To\n\n");
+                BankAccount selectedAccount = Menu.SelectAccount(user);
                 Console.WriteLine("\nHow much do you want to Deposit");
                 decimal depositAmount;
                 while (!decimal.TryParse(Console.ReadLine(), out depositAmount))
                 {
                     Console.WriteLine("Try again...");
                 }
-                //We find the matching AccountNumber from userinput
-                var selectedAccount = user.BankAccounts.FirstOrDefault(x => x.AccountNumber == userAccountInput);
 
                 if (selectedAccount != null)
                 {
