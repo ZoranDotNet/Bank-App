@@ -31,6 +31,7 @@
             else
             {
                 Console.WriteLine("You have to be Admin to create new users");
+                Console.ReadKey();
             }
         }
 
