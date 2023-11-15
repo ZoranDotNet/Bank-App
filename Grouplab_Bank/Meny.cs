@@ -147,6 +147,7 @@ namespace Grouplab_Bank
 
             }
             Console.WriteLine($"\n{decorator}You selected {option}");
+            Console.CursorVisible = true;
             return option;
         }
         public static int BankMenu(string option1, string option2, string option3, string option4)
@@ -184,6 +185,80 @@ namespace Grouplab_Bank
 
             }
             Console.WriteLine($"\n{decorator}You selected {option}");
+            Console.CursorVisible = true;
+            return option;
+        }
+        public static int BankMenu(string option1, string option2, string option3)
+        {
+            Console.OutputEncoding = Encoding.UTF8;
+            Console.CursorVisible = false;
+            Console.WriteLine("\nUse ⬆️ and ⬇️ to navigate and press \u001b[32mEnter / Return\u001b[34m to select:");
+            Console.WriteLine("\u001b[34mPlease make a choice\n ");
+            (int left, int top) = Console.GetCursorPosition();
+            int option = 1;
+            var decorator = "✅ \u001b[32m";
+            ConsoleKeyInfo key;
+            bool isSelected = false;
+            while (!isSelected)
+            {
+                Console.SetCursorPosition(left, top);
+                Console.WriteLine($"{(option == 1 ? decorator : "   ")}1 {option1}\u001b[34m");
+                Console.WriteLine($"{(option == 2 ? decorator : "   ")}2 {option2}\u001b[34m");
+                Console.WriteLine($"{(option == 3 ? decorator : "   ")}3 {option3}\u001b[34m");
+
+                key = Console.ReadKey(false);
+                switch (key.Key)
+                {
+                    case ConsoleKey.UpArrow:
+                        option = option == 1 ? 3 : option - 1;
+                        break;
+                    case ConsoleKey.DownArrow:
+                        option = option == 3 ? 1 : option + 1;
+                        break;
+                    case ConsoleKey.Enter:
+                        isSelected = true;
+                        break;
+                }
+
+            }
+            Console.WriteLine($"\n{decorator}You selected {option}");
+            Console.CursorVisible = true;
+            return option;
+        }
+        public static int BankMenu(string option1, string option2)
+        {
+            Console.OutputEncoding = Encoding.UTF8;
+            Console.CursorVisible = false;
+            Console.WriteLine("\nUse ⬆️ and ⬇️ to navigate and press \u001b[32mEnter / Return\u001b[34m to select:");
+            Console.WriteLine("\u001b[34mPlease make a choice\n ");
+            (int left, int top) = Console.GetCursorPosition();
+            int option = 1;
+            var decorator = "✅ \u001b[32m";
+            ConsoleKeyInfo key;
+            bool isSelected = false;
+            while (!isSelected)
+            {
+                Console.SetCursorPosition(left, top);
+                Console.WriteLine($"{(option == 1 ? decorator : "   ")}1 {option1}\u001b[34m");
+                Console.WriteLine($"{(option == 2 ? decorator : "   ")}2 {option2}\u001b[34m");
+
+                key = Console.ReadKey(false);
+                switch (key.Key)
+                {
+                    case ConsoleKey.UpArrow:
+                        option = option == 1 ? 2 : option - 1;
+                        break;
+                    case ConsoleKey.DownArrow:
+                        option = option == 2 ? 1 : option + 1;
+                        break;
+                    case ConsoleKey.Enter:
+                        isSelected = true;
+                        break;
+                }
+
+            }
+            Console.WriteLine($"\n{decorator}You selected {option}");
+            Console.CursorVisible = true;
             return option;
         }
     }
