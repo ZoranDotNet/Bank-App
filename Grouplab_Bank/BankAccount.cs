@@ -32,7 +32,6 @@
         public void AddAccount(User user)
         {
             Utilitys.DisplayLogo();
-            Console.ForegroundColor = ConsoleColor.Green;
             Random random = new Random();
             string accountNr = Convert.ToString(random.Next(100000, 999999));
             BankAccount bankAccount = new BankAccount(Owner = user, AccountNumber = accountNr, Balance = 0);
@@ -46,17 +45,24 @@
         //This Method just print out all accountNumbers
         private void ListAllBankAccounts(User user)
         {
-            Console.WriteLine("Your Accounts: ");
-
-            foreach (var item in user.BankAccounts)
+            if (user.BankAccounts != null)
             {
-                Console.WriteLine(item.AccountNumber);
+                Console.WriteLine("Your Accounts: ");
+
+                foreach (var item in user.BankAccounts)
+                {
+                    Console.WriteLine(item.AccountNumber);
+                }
+            }
+            else
+            {
+                Console.WriteLine("You have no BankAccount");
+                Console.ReadKey();
             }
         }
 
         public void MakeDeposit(User user)
         {
-            Console.ForegroundColor = ConsoleColor.Green;
             //if user have more than 1 bankaccount
             if (user.BankAccounts.Count > 1)
             {
@@ -115,7 +121,7 @@
         public void GetBalance(User user)
         {
             Console.ForegroundColor = ConsoleColor.Green;
-            if (user.BankAccounts.Count == 0)
+            if (user.BankAccounts == null)
             {
                 Console.WriteLine("You have no BankAccount");
                 Console.ReadKey();
