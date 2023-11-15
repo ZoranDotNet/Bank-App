@@ -64,8 +64,14 @@ namespace Grouplab_Bank
                                     deposit.MakeDeposit(user);
                                     break;
                                 case 2:
+                                    Utilities.DisplayLogo();
+                                    var withdraw = new BankAccount();
+                                    withdraw.MakeWithdraw(user);
                                     break;
                                 case 3:
+                                    Utilities.DisplayLogo();
+                                    var transfer = new BankAccount();
+                                    transfer.MakeTransfer(user);
                                     break;
                                 case 4:
                                     displaySub = false;
