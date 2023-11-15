@@ -6,94 +6,113 @@ namespace Grouplab_Bank
     {
         internal static void MainMenu(User user)
         {
-            Utilitys.DisplayLogo();
-            int option = BankMenu("Account info", "Transactions", "Loan", "Administration", "Log out");
-
-            switch (option)
+            bool displayMain = true;
+            bool displaySub = true;
+            do
             {
+                Utilities.DisplayLogo();
+                int option = BankMenu("Account info", "Transactions", "Loan", "Administration", "Log out");
 
-                case 1:
-                    Utilitys.DisplayLogo();
-                    Console.WriteLine($"\u001b[34mBank accounts");
-                    option = BankMenu("Balance", "Account Info", "Transaction History", "Open New Account");
-                    switch (option)
-                    {
-                        case 1:
-                            Utilitys.DisplayLogo();
-                            var balance = new BankAccount();
-                            balance.GetBalance(user);
-                            MainMenu(user);
-                            break;
-                        case 2://AccountInfo
-                            break;
-                        case 3://Transaction History
+                switch (option)
+                {
 
-                            break;
-                        case 4:
-                            Utilitys.DisplayLogo();
-                            BankAccount account = new BankAccount();
-                            account.AddAccount(user);
-                            MainMenu(user);
-                            break;
-                    }
-                    break;
+                    case 1:
+                        do
+                        {
+                            Utilities.DisplayLogo();
+                            Console.WriteLine($"\u001b[34mBank accounts");
+                            option = BankMenu("Balance", "Account Info", "Transaction History", "Open New Account","Return to Main Menu");
+                            switch (option)
+                            {
+                                case 1:
+                                    Utilities.DisplayLogo();
+                                    var balance = new BankAccount();
+                                    balance.GetBalance(user);
+                                    MainMenu(user);
+                                    break;
+                                case 2://AccountInfo
+                                    break;
+                                case 3://Transaction History
 
-                case 2:
-                    Utilitys.DisplayLogo();
-                    Console.WriteLine("\u001b[34mTransactions");
-                    option = BankMenu("Deposit", "Withdraw", "Transfer", "Back To Main Menu");
-                    switch (option)
-                    {
-                        case 1:
-                            Utilitys.DisplayLogo();
-                            var deposit = new BankAccount();
-                            deposit.MakeDeposit(user);
-                            MainMenu(user);
-                            break;
-                        case 2:
-                            break;
-                        case 3:
-                            break;
-                        case 4:
-                            MainMenu(user);
-                            break;
-                    }
-                    break;
+                                    break;
+                                case 4:
+                                    Utilities.DisplayLogo();
+                                    BankAccount account = new BankAccount();
+                                    account.AddAccount(user);
+                                    MainMenu(user);
+                                    break;
+                                case 5:
+                                    displaySub = false;
+                                    break;
+                            }
+                        } while (displaySub==true);
+                        break;
 
-                case 3:
-                    Utilitys.DisplayLogo();
-                    Console.WriteLine("\u001b[34mLoan");
+                    case 2:
+                        do
+                        {
 
-                    break;
-                case 4:
-                    Utilitys.DisplayLogo();
-                    Console.WriteLine("\u001b[34mAdministration");
-                    option = BankMenu("Add new User", "Set Exchange Rate", " ", "Back To Main Menu");
-                    switch (option)
-                    {
-                        case 1:
-                            Bank b = new Bank();
-                            b.AddUser(user);
-                            MainMenu(user);
-                            break;
+                            Utilities.DisplayLogo();
+                            Console.WriteLine("\u001b[34mTransactions");
+                            option = BankMenu("Deposit", "Withdraw", "Transfer", "Back To Main Menu");
+                            switch (option)
+                            {
+                                case 1:
+                                    Utilities.DisplayLogo();
+                                    var deposit = new BankAccount();
+                                    deposit.MakeDeposit(user);
+                                    MainMenu(user);
+                                    break;
+                                case 2:
+                                    break;
+                                case 3:
+                                    break;
+                                case 4:
+                                    displaySub = false;
+                                    break;
+                            }
+                        } while (displaySub == true);
+                        break;
 
-                        case 2:
-                            break;
-                        case 3:
-                            break;
-                        case 4:
-                            MainMenu(user);
-                            break;
-                    }
-                    break;
+                    case 3:
+                        Utilities.DisplayLogo();
+                        Console.WriteLine("\u001b[34mLoan");
+
+                        break;
+                    case 4:
+                        do
+                        {
+                            Utilities.DisplayLogo();
+                            Console.WriteLine("\u001b[34mAdministration");
+                            option = BankMenu("Add new User", "Set Exchange Rate", " ", "Back To Main Menu");
+                            switch (option)
+                            {
+                                case 1:
+                                    Bank b = new Bank();
+                                    b.AddUser(user);
+                                    MainMenu(user);
+                                    break;
+
+                                case 2:
+                                    break;
+                                case 3:
+                                    break;
+                                case 4:
+                                    displaySub = false;
+                                    break;
+                            }
+                        } while (displaySub==true);
+                        break;
 
 
-                case 5:
-                    Utilitys.DisplayLogo();
-                    Console.WriteLine("Goodbye, you will now be logged out ");
-                    break;
+                    case 5:
+                        Utilities.DisplayLogo();
+                        Console.WriteLine("Goodbye, you will now be logged out ");
+                        displayMain = false;
+                        break;
 
-            }
+                }
+            } while (displayMain == true);
         }
 
         public static int BankMenu(string option1, string option2, string option3, string option4, string option5)
