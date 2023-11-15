@@ -8,11 +8,11 @@
         public List<Transaction>? Transactions { get; set; }
         public Currencies Currency { get; set; } = Currencies.Sek;
         public double InterestRate { get; set; } = 0;
+
         public BankAccount()
         {
 
         }
-
         public BankAccount(User owner, string accountNumber, decimal balance)
         {
             Owner = owner;
@@ -70,7 +70,7 @@
 
                 if (answersaving == "1")
                 {
-                    interestRate = 3.0;   
+                    interestRate = 3.0;
                 }
                 else if (answersaving == "2")
                 {
@@ -85,7 +85,7 @@
                     Console.WriteLine("Invalid answer, please choose option 1 to 3");
                     return;
                 }
-                string saveAccount = Convert.ToString(random.Next(10000, 99999));
+                string saveAccount = Convert.ToString(random.Next(100000, 99999));
                 BankAccount savingsAccount = new BankAccount(Owner = user, AccountNumber = saveAccount, Balance = 0, InterestRate = interestRate);
                 user.BankAccounts.Add(savingsAccount);
                 Console.WriteLine($"New Savings Account approved with {interestRate}% rate");
@@ -102,7 +102,7 @@
         //This Method just print out all accountNumbers
         private void ListAllBankAccounts(User user)
         {
-            if (user.BankAccounts != null)
+            if (user.BankAccounts.Count > 0)
             {
                 Console.WriteLine("Your Accounts: ");
 
@@ -177,20 +177,20 @@
         public void GetBalance(User user)
         {
             Console.ForegroundColor = ConsoleColor.Green;
-            if (user.BankAccounts == null)
+            if (user.BankAccounts.Count == 0)
             {
                 Console.WriteLine("You have no BankAccount");
                 Console.ReadKey();
             }
             else
             {
-                Console.WriteLine("****************************************************************");
-                Console.WriteLine("* AccountNr **    Balance     **  Currency  **      Owner      *");
-                Console.WriteLine("****************************************************************");
+                Console.WriteLine("******************************************************************************");
+                Console.WriteLine("* AccountNr **    Balance     **  Currency  **  Interest %  **    Owner      *");
+                Console.WriteLine("******************************************************************************");
                 foreach (var item in user.BankAccounts)
                 {
-                    Console.WriteLine($"*  {item.AccountNumber,-8} **  {item.Balance.ToString("N2"),-13} **    {item.Currency,-7} **    {item.Owner.Name,-10}   *");
-                    Console.WriteLine("****************************************************************");
+                    Console.WriteLine($"*  {item.AccountNumber,-8} **  {item.Balance.ToString("N2"),-13} **    {item.Currency,-7} **       {item.InterestRate,-6} **  {item.Owner.Name,-10}   *");
+                    Console.WriteLine("******************************************************************************");
                 }
 
                 Console.ReadKey();
