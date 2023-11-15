@@ -63,6 +63,13 @@
 
         public void MakeDeposit(User user)
         {
+            if (user.BankAccounts.Count == 0)
+            {
+                Console.WriteLine("\nYou have no BankAccount ");
+                Console.ReadKey();
+                return;
+            }
+
             //if user have more than 1 bankaccount
             if (user.BankAccounts.Count > 1)
             {
@@ -90,16 +97,9 @@
                     Console.WriteLine("Could not find Account");
                     Console.ReadKey();
                 }
-
             }
             else
             {
-                if (user.BankAccounts.Count == 0)
-                {
-                    Console.WriteLine("\nYou have no BankAccount ");
-                }
-
-
                 Console.Write("\nHow much would You like to Deposit. ");
                 decimal amount;
 
@@ -114,7 +114,6 @@
                 {
                     account.Balance += amount;
                 }
-
             }
         }
 
@@ -128,13 +127,13 @@
             }
             else
             {
-                Console.WriteLine("***************************************************");
-                Console.WriteLine("* AccountNr **  Balance  **  Currency  **  Owner  *");
-                Console.WriteLine("***************************************************");
+                Console.WriteLine("****************************************************************");
+                Console.WriteLine("* AccountNr **    Balance     **  Currency  **      Owner      *");
+                Console.WriteLine("****************************************************************");
                 foreach (var item in user.BankAccounts)
                 {
-                    Console.WriteLine($"*  {item.AccountNumber}        {item.Balance}       {item.Currency}         {item.Owner.Name}");
-                    Console.WriteLine("***************************************************");
+                    Console.WriteLine($"*  {item.AccountNumber,-8} **  {item.Balance.ToString("N2"),-13} **    {item.Currency,-7} **    {item.Owner.Name,-10}   *");
+                    Console.WriteLine("****************************************************************");
                 }
 
                 Console.ReadKey();
