@@ -28,7 +28,6 @@ namespace Grouplab_Bank
                                     Utilities.DisplayLogo();
                                     var balance = new BankAccount();
                                     balance.GetBalance(user);
-                                    MainMenu(user);
                                     break;
                                 case 2://AccountInfo
                                     break;
@@ -39,7 +38,6 @@ namespace Grouplab_Bank
                                     Utilities.DisplayLogo();
                                     BankAccount account = new BankAccount();
                                     account.AddAccount(user);
-                                    MainMenu(user);
                                     break;
                                 case 5:
                                     displaySub = false;
@@ -61,7 +59,6 @@ namespace Grouplab_Bank
                                     Utilities.DisplayLogo();
                                     var deposit = new BankAccount();
                                     deposit.MakeDeposit(user);
-                                    MainMenu(user);
                                     break;
                                 case 2:
                                     break;
@@ -90,7 +87,6 @@ namespace Grouplab_Bank
                                 case 1:
                                     Bank b = new Bank();
                                     b.AddUser(user);
-                                    MainMenu(user);
                                     break;
 
                                 case 2:
