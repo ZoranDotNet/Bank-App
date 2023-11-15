@@ -1,4 +1,6 @@
-﻿namespace Grouplab_Bank
+﻿using System.Linq.Expressions;
+
+namespace Grouplab_Bank
 {
     internal partial class BankAccount
     {
@@ -31,15 +33,71 @@
 
         public void AddAccount(User user)
         {
-
             Utilities.DisplayLogo();
-            Random random = new Random();
-            string accountNr = Convert.ToString(random.Next(100000, 999999));
-            BankAccount bankAccount = new BankAccount(Owner = user, AccountNumber = accountNr, Balance = 0);
-            user.BankAccounts.Add(bankAccount);
+            Console.WriteLine("What kind of account do you want to open? please choose 1 or 2");
+            Console.WriteLine("1. Account");
+            Console.WriteLine("2. Savings Account");
 
-            Console.WriteLine("New BankAccount approved");
-            Console.ReadKey();
+            string answer = Console.ReadLine();
+
+            if (answer == "1")
+            {
+                Random random = new Random();
+                string accountNr = Convert.ToString(random.Next(100000, 999999));
+                BankAccount bankAccount = new BankAccount(Owner = user, AccountNumber = accountNr, Balance = 0);
+                user.BankAccounts.Add(bankAccount);
+
+                Console.WriteLine("New BankAccount approved");
+                Console.ReadKey();
+            }
+            else if (answer == "2")
+            {
+                
+                Console.WriteLine("How long will you save for? please choose between 1 to 3");
+                Console.WriteLine("1. 1 year, 3% rate");
+                Console.WriteLine("2. 3 years, 5% rate");
+                Console.WriteLine("3. 5 years, 7% rate");
+                string answersaving = Console.ReadLine();
+
+                if (answersaving == "1")
+                {
+                    Random random = new Random();
+                    string saveAccount = Convert.ToString(random.Next(10000, 99999));
+                    BankAccount savingsAccount = new BankAccount(Owner = user, AccountNumber = saveAccount, Balance = 0);
+                    user.BankAccounts.Add(savingsAccount);
+                    Console.WriteLine("New Savings Account approved with 3% rate");
+                    Console.ReadKey();
+                }
+                else if (answersaving == "2")
+                {
+                    Random random = new Random();
+                    string saveAccount = Convert.ToString(random.Next(10000, 99999));
+                    BankAccount savingsAccount = new BankAccount(Owner = user, AccountNumber = saveAccount, Balance = 0);
+                    user.BankAccounts.Add(savingsAccount);
+                    Console.WriteLine("New Savings Account approved with 5% rate");
+                    Console.ReadKey();
+                }
+                else if (answersaving == "3")
+                {
+                    Random random = new Random();
+                    string saveAccount = Convert.ToString(random.Next(10000, 99999));
+                    BankAccount savingsAccount = new BankAccount(Owner = user, AccountNumber = saveAccount, Balance = 0);
+                    user.BankAccounts.Add(savingsAccount);
+                    Console.WriteLine("New Savings Account approved with 7% rate");
+                    Console.ReadKey();
+                }
+                else
+                {
+                    Console.WriteLine("Invalid answer, please choose option 1 to 3");
+                }
+
+            }
+            else
+            {
+                Console.WriteLine("Invalid answer, please choose option 1 or 2");
+            }
+
+
 
         }
 
