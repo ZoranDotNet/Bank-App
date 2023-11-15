@@ -6,7 +6,7 @@
         public string? AccountNumber { get; set; }
         public decimal Balance { get; set; } = 0;
         public List<Transaction>? Transactions { get; set; }
-        public Currencies Currencie { get; set; } = Currencies.Sek;
+        public Currencies Currency { get; set; } = Currencies.Sek;
         public BankAccount()
         {
 
@@ -20,13 +20,13 @@
             Transactions = new List<Transaction>();
         }
 
-        public BankAccount(User owner, string accountNumber, decimal balance, Currencies currencie)
+        public BankAccount(User owner, string accountNumber, decimal balance, Currencies currency)
         {
             Owner = owner;
             AccountNumber = accountNumber;
             Balance = balance;
             Transactions = new List<Transaction>();
-            Currencie = currencie;
+            Currency = currency;
         }
 
         public void AddAccount(User user)
@@ -128,13 +128,13 @@
             }
             else
             {
-                Console.WriteLine("*************************************");
-                Console.WriteLine("* AccountNr **  Balance  **  Owner  *");
-                Console.WriteLine("*************************************");
+                Console.WriteLine("***************************************************");
+                Console.WriteLine("* AccountNr **  Balance  **  Currency  **  Owner  *");
+                Console.WriteLine("***************************************************");
                 foreach (var item in user.BankAccounts)
                 {
-                    Console.WriteLine($"*  {item.AccountNumber}      {item.Balance} Sek   {item.Owner.Name}");
-                    Console.WriteLine("*************************************");
+                    Console.WriteLine($"*  {item.AccountNumber}        {item.Balance}       {item.Currency}         {item.Owner.Name}");
+                    Console.WriteLine("***************************************************");
                 }
 
                 Console.ReadKey();
