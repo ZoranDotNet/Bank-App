@@ -4,6 +4,13 @@
     {
         public void MakeTransfer(User user)
         {
+            if (user.BankAccounts.Count < 2)
+            {
+                Console.WriteLine("\nYou need at least 2 Accounts to make a Transfer");
+                Console.ReadKey();
+                return;
+            }
+
             ListAllBankAccounts(user);
 
             Console.WriteLine("\n\nWich Account do you want to Transfer From ");
@@ -21,6 +28,7 @@
             // finding users Account to Transfer to
             var accountTo = user.BankAccounts.FirstOrDefault(x => x.AccountNumber == accountNrTo);
 
+            //if we find both accounts we proceed otherwisw back to menu
             if (accountFrom != null && accountTo != null)
             {
                 if (accountFrom.Balance >= amount)
