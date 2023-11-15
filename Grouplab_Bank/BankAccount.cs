@@ -66,46 +66,36 @@
                 Console.WriteLine("2. 3 years, 5% rate");
                 Console.WriteLine("3. 5 years, 7% rate");
                 string answersaving = Console.ReadLine();
+                double interestRate = 0.0;
 
                 if (answersaving == "1")
                 {
-
-                    string saveAccount = Convert.ToString(random.Next(10000, 99999));
-                    BankAccount savingsAccount = new BankAccount(Owner = user, AccountNumber = saveAccount, Balance = 0);
-                    user.BankAccounts.Add(savingsAccount);
-                    Console.WriteLine("New Savings Account approved with 3% rate");
-                    Console.ReadKey();
+                    interestRate = 3.0;   
                 }
                 else if (answersaving == "2")
                 {
-
-                    string saveAccount = Convert.ToString(random.Next(10000, 99999));
-                    BankAccount savingsAccount = new BankAccount(Owner = user, AccountNumber = saveAccount, Balance = 0);
-                    user.BankAccounts.Add(savingsAccount);
-                    Console.WriteLine("New Savings Account approved with 5% rate");
-                    Console.ReadKey();
+                    interestRate = 5.0;
                 }
                 else if (answersaving == "3")
                 {
-
-                    string saveAccount = Convert.ToString(random.Next(10000, 99999));
-                    BankAccount savingsAccount = new BankAccount(Owner = user, AccountNumber = saveAccount, Balance = 0);
-                    user.BankAccounts.Add(savingsAccount);
-                    Console.WriteLine("New Savings Account approved with 7% rate");
-                    Console.ReadKey();
+                    interestRate = 7.0;
                 }
                 else
                 {
                     Console.WriteLine("Invalid answer, please choose option 1 to 3");
+                    return;
                 }
+                string saveAccount = Convert.ToString(random.Next(10000, 99999));
+                BankAccount savingsAccount = new BankAccount(Owner = user, AccountNumber = saveAccount, Balance = 0, InterestRate = interestRate);
+                user.BankAccounts.Add(savingsAccount);
+                Console.WriteLine($"New Savings Account approved with {interestRate}% rate");
+                Console.ReadKey();
 
             }
             else
             {
                 Console.WriteLine("Invalid answer, please choose option 1 or 2");
             }
-
-
 
         }
 
