@@ -192,30 +192,70 @@
 
             //            // needs to make a method to find AccountNr that matches another user
 
-         }
+        }
         public void GetBalance(User user)
 
-                    {
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        if (user.BankAccounts.Count == 0)
-                        {
-                            Console.WriteLine("You have no BankAccount");
-                            Console.ReadKey();
-                        }
-                        else
-                        {
-                            decimal total = 0;
-                            foreach (var item in user.BankAccounts)
-                            {
-                                total += item.Balance;
-                                Console.WriteLine($"*  {item.AccountNumber,-8} * {item.Balance.ToString("N2"),-13} * {item.Currency,-4} * ");
-                                Console.WriteLine("******************************************************************************");
-                            }
-                            Console.ReadKey();
-                        }
-                       }
-            
-        
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            if (user.BankAccounts.Count == 0)
+            {
+                Console.WriteLine("You have no BankAccount");
+                Console.ReadKey();
+            }
+            else
+            {
+                decimal total = 0;
+                foreach (var item in user.BankAccounts)
+                {
+                    total += item.Balance;
+                    Console.WriteLine($"*  {item.AccountNumber,-8} * {item.Balance.ToString("N2"),-13} * {item.Currency,-4} * ");
+                    Console.WriteLine("******************************************************************************");
+                }
+                Console.ReadKey();
+            }
+        }
+        public void MakeWithdraw(User user)
+        {
+            if (user.BankAccounts.Count == 0)
+            {
+                Utilities.DisplayLogo();
+                Console.WriteLine("\nYou have no BankAccount ");
+                Console.ReadKey();
+                return;
+            }
+            else
+            {
+                if (user.BankAccounts.Count > 1)
+                {
+                    Console.WriteLine("\nWich account do you want to withdraw from?");
+                }
+                BankAccount selectedAccount = Menu.SelectAccount(user);
+
+                Console.WriteLine("\nEnter amount to withdraw:");
+                decimal withdrawAmount;
+                TransactionType type = TransactionType.Withdraw;
+                while (!decimal.TryParse(Console.ReadLine(), out withdrawAmount))
+                {
+                    Console.WriteLine("Try again...");
+                }
+
+                if (selectedAccount.Balance > withdrawAmount)
+                {
+                    selectedAccount.Balance -= withdrawAmount;
+                    Addtransaction(selectedAccount, type, withdrawAmount);
+                    Console.WriteLine($"You have successfully withdrawn {withdrawAmount} from account {selectedAccount.AccountNumber}");
+                    Console.ReadKey();
+                }
+                else
+                {
+                    Console.WriteLine($"You dont have enough money in account {selectedAccount.AccountNumber}");
+                    Console.ReadKey();
+                }
+
+            }
+        }
+
+
 
     }
 }
