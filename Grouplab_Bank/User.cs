@@ -2,7 +2,7 @@
 
 namespace Grouplab_Bank
 {
-    internal class User
+    internal partial class User
     {
         public string? Name { get; set; }
         public string? Username { get; set; }
