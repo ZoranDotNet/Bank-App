@@ -5,6 +5,7 @@
         static void Main(string[] args)
         {
             var bank = new Bank();
+            Menu.SetBank(bank);
             bank.Run();
 
 
