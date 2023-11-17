@@ -34,11 +34,11 @@ namespace Grouplab_Bank
                             {
                                 case 1:
                                     Utilities.DisplayLogo();
-                                    user.BankAccounts[0].GetBalance(user);
+                                    user.GetBalance(user);
                                     break;
                                 case 2:
                                     Utilities.DisplayLogo();
-                                    user.BankAccounts[0].GetAccountInfo(user);
+                                    user.GetAccountInfo(user);
                                     break;
                                 case 3://Transaction History
                                     break;
@@ -46,6 +46,10 @@ namespace Grouplab_Bank
                                     Utilities.DisplayLogo();
                                     BankAccount account = new BankAccount();
                                     account.AddAccount(user);
+                                    if (account != null)
+                                    {
+                                        user.BankAccounts.Add(account);
+                                    }
                                     break;
                                 case 5:
                                     displaySub = false;
@@ -64,17 +68,18 @@ namespace Grouplab_Bank
                             {
                                 case 1:
                                     Utilities.DisplayLogo();
-                                    user.BankAccounts[0].MakeDeposit(user);
+                                    user.MakeDeposit(user);
                                     break;
                                 case 2:
                                     Utilities.DisplayLogo();
                                     var withdraw = new BankAccount();
                                     withdraw.MakeWithdraw(user);
+                                    //user.MakeWithdraw(user);
+                                    //Move Method to user and call with ^
                                     break;
                                 case 3:
                                     Utilities.DisplayLogo();
-                                    var transfer = new BankAccount();
-                                    transfer.MakeTransfer(user);
+                                    user.MakeTransfer(user);
                                     break;
                                 case 4:
                                     Utilities.DisplayLogo();
@@ -82,7 +87,7 @@ namespace Grouplab_Bank
                                     string input = Console.ReadLine();
                                     User newuser = bank.GetUser(input);
                                     Utilities.DisplayLogo();
-                                    user.BankAccounts[0].MakeExternalTransfer(user, newuser, input);
+                                    user.MakeExternalTransfer(user, newuser, input);
                                     break;
                                 case 5:
                                     displaySub = false;
