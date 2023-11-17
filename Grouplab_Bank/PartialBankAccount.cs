@@ -6,75 +6,39 @@
         {
             if (user.BankAccounts.Count == 0)
             {
+                Utilities.DisplayLogo();
                 Console.WriteLine("\nYou have no BankAccount ");
                 Console.ReadKey();
                 return;
             }
-            if (user.BankAccounts.Count > 1)
+            else
             {
-                Console.WriteLine("\nWich account do you want to withdraw from?");
-                string thisAccount = Console.ReadLine();
-                Console.WriteLine("\nEnter amount to withdraw:");
+                if (user.BankAccounts.Count > 1)
+                {
+                    Console.WriteLine("\nWich account do you want to withdraw from?");
+                }
+                BankAccount selectedAccount = Menu.SelectAccount(user);
 
+                Console.WriteLine("\nEnter amount to withdraw:");
                 decimal withdrawAmount;
                 while (!decimal.TryParse(Console.ReadLine(), out withdrawAmount))
                 {
                     Console.WriteLine("Try again...");
                 }
-                var selectedAccount = user.BankAccounts.FirstOrDefault(x => x.AccountNumber == thisAccount);
 
-                if (selectedAccount != null)
+                if (selectedAccount.Balance > withdrawAmount)
                 {
-                    if (selectedAccount.Balance > withdrawAmount)
-                    {
-                        selectedAccount.Balance -= withdrawAmount;
-                        Console.WriteLine($"You have successfully withdrawn {withdrawAmount} from account {selectedAccount.AccountNumber}");
-                        Console.ReadKey();
-                    }
-                    else
-                    {
-                        Console.WriteLine($"You dont have enough money in account {selectedAccount}");
-                        Console.ReadKey();
-                    }
+                    selectedAccount.Balance -= withdrawAmount;
+                    Console.WriteLine($"You have successfully withdrawn {withdrawAmount} from account {selectedAccount.AccountNumber}");
+                    Console.ReadKey();
                 }
                 else
                 {
-                    Console.WriteLine("Account not found");
+                    Console.WriteLine($"You dont have enough money in account {selectedAccount.AccountNumber}");
                     Console.ReadKey();
                 }
 
-            }
-            else
-            {
-                Console.WriteLine("\nEnter amount to withdraw:");
-                decimal amountToWithdraw;
-                while (!decimal.TryParse(Console.ReadLine(), out amountToWithdraw))
-                {
-                    Console.WriteLine("Try again...");
-                }
-                var onlyAccount = user.BankAccounts.FirstOrDefault();
-
-                if (onlyAccount != null)
-                {
-                    if (onlyAccount.Balance > amountToWithdraw)
-                    {
-                        onlyAccount.Balance -= amountToWithdraw;
-                        Console.WriteLine($"You have successfully withdrawn {amountToWithdraw} from account {onlyAccount.AccountNumber}.");
-                        Console.ReadKey();
-
-                    }
-                    else
-                    {
-                        Console.WriteLine($"Yoy dont have enough money in account {onlyAccount.AccountNumber}");
-                        Console.ReadKey();
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Account not found");
-                    Console.ReadKey();
-                }
-            }
+            }    
         }
     }
 }
