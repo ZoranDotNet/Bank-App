@@ -116,18 +116,15 @@
                 Utilities.DisplayLogo();
                 Console.WriteLine("\n\nWich Account do you want to Transfer From ");
                 BankAccount accountNrFrom = Menu.SelectAccount(user);
-                Console.ReadKey();
 
                 Utilities.DisplayLogo();
                 Console.WriteLine("Wich Account do you want to Transfer To ");
                 BankAccount accountNrTo = Menu.SelectAccount(user);
-                Console.ReadKey();
-
+               
                 Utilities.DisplayLogo();
                 Console.WriteLine("How much do You want to Transfer ");
                 decimal amount;
-                Console.ReadKey();
-
+                
                 while (!decimal.TryParse(Console.ReadLine(), out amount))
                 {
                     Console.Write("Try again.. ");
@@ -159,37 +156,37 @@
         public void MakeExternalTransfer(User userFrom, User userTo, string account)
         {
 
-            Console.WriteLine("\n\nWich Account do you want to Transfer From ");
-            string accountNrFrom = Console.ReadLine();
-            Console.WriteLine("Wich Account do you want to Transfer To ");
-            string accountNrTo = Console.ReadLine();
-            Console.WriteLine("How much do You want to Transfer ");
-            decimal amount;
-            while (!decimal.TryParse(Console.ReadLine(), out amount))
-            {
-                Console.Write("Try again.. ");
-            }
+            //Console.WriteLine("\n\nWich Account do you want to Transfer From ");
+            //string accountNrFrom = Console.ReadLine();
+            //Console.WriteLine("Wich Account do you want to Transfer To ");
+            //string accountNrTo = Console.ReadLine();
+            //Console.WriteLine("How much do You want to Transfer ");
+            //decimal amount;
+            //while (!decimal.TryParse(Console.ReadLine(), out amount))
+            //{
+            //    Console.Write("Try again.. ");
+            //}
 
 
-                        Console.WriteLine("\n\nWich Account do you want to Transfer From ");
-                        string accountNrFrom = Console.ReadLine();
-                        Console.WriteLine("Wich Account do you want to Transfer To ");
-                        string accountNrTo = Console.ReadLine();
-                        Console.WriteLine("How much do You want to Transfer ");
-                        decimal amount;
-                        while (!decimal.TryParse(Console.ReadLine(), out amount))
-                        {
-                            Console.Write("Try again.. ");
-                        }
+            //            Console.WriteLine("\n\nWich Account do you want to Transfer From ");
+            //            string accountNrFrom = Console.ReadLine();
+            //            Console.WriteLine("Wich Account do you want to Transfer To ");
+            //            string accountNrTo = Console.ReadLine();
+            //            Console.WriteLine("How much do You want to Transfer ");
+            //            decimal amount;
+            //            while (!decimal.TryParse(Console.ReadLine(), out amount))
+            //            {
+            //                Console.Write("Try again.. ");
+            //            }
 
-                        //finding users Account to Transfer from
-                        var accountFrom = userFrom.BankAccounts.FirstOrDefault(x => x.AccountNumber == accountNrFrom);
+            //            //finding users Account to Transfer from
+            //            var accountFrom = userFrom.BankAccounts.FirstOrDefault(x => x.AccountNumber == accountNrFrom);
 
 
-                        Console.WriteLine("Wich AccounNumber do you want to Trasfer To");
-                        string accountNr = Console.ReadLine();
+            //            Console.WriteLine("Wich AccounNumber do you want to Trasfer To");
+            //            string accountNr = Console.ReadLine();
 
-                        // needs to make a method to find AccountNr that matches another user
+            //            // needs to make a method to find AccountNr that matches another user
 
          }
         public void GetBalance(User user)
