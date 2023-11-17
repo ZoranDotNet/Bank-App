@@ -83,7 +83,7 @@
                         double interestRate = 0.0;
                         switch (Menu.BankMenu("1 year, 3% rate", "3 years, 5% rate", "3 years, 5% rate"))
                         {
-                        case 1:
+                            case 1:
                                 interestRate = 3.0;
                                 break;
                             case 2:
@@ -92,16 +92,16 @@
                             case 3:
                                 interestRate = 7.0;
                                 break;
-                            }
-                            string saveAccount = Convert.ToString(random.Next(100000, 999999));
-                            BankAccount savingsAccount = new BankAccount(Owner = user, AccountNumber = saveAccount, Balance = 0, InterestRate = interestRate);
+                        }
+                        string saveAccount = Convert.ToString(random.Next(100000, 999999));
+                        BankAccount savingsAccount = new BankAccount(Owner = user, AccountNumber = saveAccount, Balance = 0, InterestRate = interestRate);
                         user.BankAccounts.Add(savingsAccount);
                         Utilities.DisplayLogo();
                         Console.WriteLine($"New Savings Account approved with {interestRate}% rate");
-                            Console.ReadKey();
-                            break;
+                        Console.ReadKey();
+                        break;
                 }
-            
+
             }
 
         }
@@ -240,7 +240,7 @@
                     Console.ReadKey();
                 }
             }
-            
+
             else
             {
                 Console.WriteLine("Invalid choice ");
@@ -254,7 +254,7 @@
 
         public void MakeExternalTransfer(User userFrom, User userTo, string account)
         {
-            ListAllBankAccounts(user);
+            ListAllBankAccounts(userFrom);
 
             Console.WriteLine("\n\nWich Account do you want to Transfer From ");
             string accountNrFrom = Console.ReadLine();
@@ -268,7 +268,7 @@
             }
 
             //finding users Account to Transfer from
-            var accountFrom = user.BankAccounts.FirstOrDefault(x => x.AccountNumber == accountNrFrom);
+            var accountFrom = userFrom.BankAccounts.FirstOrDefault(x => x.AccountNumber == accountNrFrom);
 
 
             Console.WriteLine("Wich AccounNumber do you want to Trasfer To");
