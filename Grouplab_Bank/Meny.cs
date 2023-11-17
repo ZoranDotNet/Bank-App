@@ -33,16 +33,14 @@ namespace Grouplab_Bank
                             switch (option)
                             {
                                 case 1:
-
+                                    Utilities.DisplayLogo();
+                                    user.BankAccounts[0].GetBalance(user);
                                     break;
-                                case 2://AccountInfo
+                                case 2:
                                     Utilities.DisplayLogo();
-                                    Utilities.DisplayLogo();
-                                    var balance = new BankAccount();
-                                    balance.GetAccountInfo(user);
+                                    user.BankAccounts[0].GetAccountInfo(user);
                                     break;
                                 case 3://Transaction History
-
                                     break;
                                 case 4:
                                     Utilities.DisplayLogo();
@@ -59,16 +57,14 @@ namespace Grouplab_Bank
                     case 2:
                         do
                         {
-
                             Utilities.DisplayLogo();
                             Console.WriteLine("\u001b[34mTransactions");
-                            option = BankMenu("Deposit", "Withdraw", "Transfer", "Back To Main Menu");
+                            option = BankMenu("Deposit", "Withdraw", "Transfer", "External Transfer", "Back To Main Menu");
                             switch (option)
                             {
                                 case 1:
                                     Utilities.DisplayLogo();
-                                    var deposit = new BankAccount();
-                                    deposit.MakeDeposit(user);
+                                    user.BankAccounts[0].MakeDeposit(user);
                                     break;
                                 case 2:
                                     Utilities.DisplayLogo();
@@ -81,6 +77,10 @@ namespace Grouplab_Bank
                                     transfer.MakeTransfer(user);
                                     break;
                                 case 4:
+                                    Utilities.DisplayLogo();
+
+                                    break;
+                                case 5:
                                     displaySub = false;
                                     break;
                             }
