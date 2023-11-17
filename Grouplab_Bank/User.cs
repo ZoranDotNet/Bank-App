@@ -102,107 +102,107 @@ namespace Grouplab_Bank
         //needs work
         public void MakeTransfer(User user)
         {
-            Console.WriteLine("1 for Transfer to your own Account");
-            Console.WriteLine("2 for Transfer to someone elses Account");
-            string userInput = Console.ReadLine();
-
-            if (userInput == "1")
+            Utilities.DisplayLogo();
+            if (user.BankAccounts.Count < 2)
             {
-                if (user.BankAccounts.Count < 2)
-                {
-                    Console.WriteLine("\nYou need at least 2 Accounts to make a Transfer");
-                    Console.ReadKey();
-                    return;
-                }
-                ListAllBankAccounts(user);
-
+                Utilities.DisplayLogo();
+                Console.WriteLine("\nYou need at least 2 Accounts to make a Transfer");
+                Console.ReadKey();
+                return;
+            }
+            else
+            {
+                Utilities.DisplayLogo();
                 Console.WriteLine("\n\nWich Account do you want to Transfer From ");
-                string accountNrFrom = Console.ReadLine();
+                BankAccount accountNrFrom = Menu.SelectAccount(user);
+                Console.ReadKey();
+
+                Utilities.DisplayLogo();
                 Console.WriteLine("Wich Account do you want to Transfer To ");
-                string accountNrTo = Console.ReadLine();
+                BankAccount accountNrTo = Menu.SelectAccount(user);
+                Console.ReadKey();
+
+                Utilities.DisplayLogo();
                 Console.WriteLine("How much do You want to Transfer ");
                 decimal amount;
+                Console.ReadKey();
+
                 while (!decimal.TryParse(Console.ReadLine(), out amount))
                 {
                     Console.Write("Try again.. ");
                 }
-                //finding users Account to Transfer from
-                var accountFrom = user.BankAccounts.FirstOrDefault(x => x.AccountNumber == accountNrFrom);
-                // finding users Account to Transfer to
-                var accountTo = user.BankAccounts.FirstOrDefault(x => x.AccountNumber == accountNrTo);
-
-                //if we find both accounts we proceed otherwisw back to menu
-                if (accountFrom != null && accountTo != null)
+                if (accountNrFrom != null && accountNrTo != null)
                 {
-                    if (accountFrom.Balance >= amount)
+                    if (accountNrFrom.Balance >= amount)
                     {
-                        accountFrom.Balance -= amount;
+                        accountNrFrom.Balance -= amount;
 
-                        accountTo.Balance += amount;
+                        accountNrTo.Balance += amount;
+
+                        Utilities.DisplayLogo();
+                        Console.WriteLine($"Successful transfer, {accountNrFrom.AccountNumber} transferred to {accountNrTo.AccountNumber}");
+                        Console.ReadKey();
                     }
                     else
                     {
+                        Utilities.DisplayLogo();
                         Console.WriteLine("You do not have sufficient funds in your account");
                         Console.ReadKey();
                     }
+                    
                 }
-                else
-                {
-                    Console.WriteLine("Could not find your account ");
-                    Console.ReadKey();
-                }
-            }
-            else
-            {
-                Console.WriteLine("Invalid choice ");
-                Console.ReadKey();
+
             }
         }
-        //needs work
+                    //needs work
         public void MakeExternalTransfer(User userFrom, User userTo, string account)
-        {
-            ListAllBankAccounts(userFrom);
+                    {
+                        //ListAllBankAccounts(userFrom);
 
-            Console.WriteLine("\n\nWich Account do you want to Transfer From ");
-            string accountNrFrom = Console.ReadLine();
-            Console.WriteLine("Wich Account do you want to Transfer To ");
-            string accountNrTo = Console.ReadLine();
-            Console.WriteLine("How much do You want to Transfer ");
-            decimal amount;
-            while (!decimal.TryParse(Console.ReadLine(), out amount))
-            {
-                Console.Write("Try again.. ");
-            }
+                        Console.WriteLine("\n\nWich Account do you want to Transfer From ");
+                        string accountNrFrom = Console.ReadLine();
+                        Console.WriteLine("Wich Account do you want to Transfer To ");
+                        string accountNrTo = Console.ReadLine();
+                        Console.WriteLine("How much do You want to Transfer ");
+                        decimal amount;
+                        while (!decimal.TryParse(Console.ReadLine(), out amount))
+                        {
+                            Console.Write("Try again.. ");
+                        }
 
-            //finding users Account to Transfer from
-            var accountFrom = userFrom.BankAccounts.FirstOrDefault(x => x.AccountNumber == accountNrFrom);
+                        //finding users Account to Transfer from
+                        var accountFrom = userFrom.BankAccounts.FirstOrDefault(x => x.AccountNumber == accountNrFrom);
 
 
-            Console.WriteLine("Wich AccounNumber do you want to Trasfer To");
-            string accountNr = Console.ReadLine();
+                        Console.WriteLine("Wich AccounNumber do you want to Trasfer To");
+                        string accountNr = Console.ReadLine();
 
-            // needs to make a method to find AccountNr that matches another user
+                        // needs to make a method to find AccountNr that matches another user
 
-        }
+                    }
         public void GetBalance(User user)
-        {
-            Console.ForegroundColor = ConsoleColor.Green;
-            if (user.BankAccounts.Count == 0)
-            {
-                Console.WriteLine("You have no BankAccount");
-                Console.ReadKey();
-            }
-            else
-            {
-                decimal total = 0;
-                foreach (var item in user.BankAccounts)
-                {
-                    total += item.Balance;
-                    Console.WriteLine($"*  {item.AccountNumber,-8} * {item.Balance.ToString("N2"),-13} * {item.Currency,-4} * ");
-                    Console.WriteLine("******************************************************************************");
-                }
-                Console.ReadKey();
-            }
-        }
+
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        if (user.BankAccounts.Count == 0)
+                        {
+                            Console.WriteLine("You have no BankAccount");
+                            Console.ReadKey();
+                        }
+                        else
+                        {
+                            decimal total = 0;
+                            foreach (var item in user.BankAccounts)
+                            {
+                                total += item.Balance;
+                                Console.WriteLine($"*  {item.AccountNumber,-8} * {item.Balance.ToString("N2"),-13} * {item.Currency,-4} * ");
+                                Console.WriteLine("******************************************************************************");
+                            }
+                            Console.ReadKey();
+                        }
+                       }
+            
+        
+
     }
 }
