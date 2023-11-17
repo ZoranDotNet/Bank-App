@@ -61,7 +61,7 @@
             if (selectedAccount.InterestRate > 0)
             {
                 decimal interestToPay = CalculateInterest(selectedAccount.InterestRate, depositAmount);
-                Console.WriteLine($"The interest on your Savings Account will be {interestToPay} {selectedAccount.Currency} / year");
+                Console.WriteLine($"The interest on your Savings Account will be {interestToPay.ToString("N2")} {selectedAccount.Currency} / year");
                 Console.ReadKey();
             }
 
@@ -209,8 +209,8 @@
                 foreach (var item in user.BankAccounts)
                 {
                     total += item.Balance;
-                    Console.WriteLine($"*  {item.AccountNumber,-8} * {item.Balance.ToString("N2"),-13} * {item.Currency,-4} * ");
-                    Console.WriteLine("******************************************************************************");
+                    Console.WriteLine($"* AccountNr: {item.AccountNumber,-6} ** {item.Balance.ToString("N2"),-13} ** {item.Currency,-4}  ");
+                    Console.WriteLine("************************************************");
                 }
                 Console.ReadKey();
             }
@@ -265,6 +265,7 @@
                 Console.ReadKey();
                 return;
             }
+            // we loop users BankAccounts and then loop all Transactions on every account.
             foreach (BankAccount account in user.BankAccounts)
             {
                 foreach (Transaction item in account.Transactions)
@@ -280,7 +281,7 @@
             DateTime date = DateTime.Today;
             decimal transactionAmount = 0;
 
-            //This makes it look like -1000 if it is withdraw or transfer from.
+            //This makes it look like a negative number if it is withdraw or transfer from.
             if (type == TransactionType.Withdraw || type == TransactionType.Transfer_From)
             {
                 transactionAmount = amount - 2 * amount;

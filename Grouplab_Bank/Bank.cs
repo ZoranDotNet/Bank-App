@@ -86,7 +86,7 @@
                                     Utilities.DisplayLogo();
                                     Console.WriteLine("Wich AccountNumber do you want to transfer To ");
                                     string input = Console.ReadLine();
-                                    User newuser = GetUser(input);
+                                    User newuser = GetUserByBankAccount(input);
                                     Utilities.DisplayLogo();
                                     user.MakeExternalTransfer(user, newuser, input);
                                     break;
@@ -170,7 +170,7 @@
                 Console.ReadKey();
             }
         }
-        public User GetUser(string accountNr)
+        public User GetUserByBankAccount(string accountNr)
         {
             foreach (var user in Users)
             {
