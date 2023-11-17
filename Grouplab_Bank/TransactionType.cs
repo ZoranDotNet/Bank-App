@@ -6,7 +6,7 @@
         Withdraw,
         Transfer_From,
         Transfer_To,
-        Open_New_Account,
+        New_Account,
         Loan,
     }
 }

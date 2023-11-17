@@ -4,151 +4,6 @@ namespace Grouplab_Bank
 {
     internal static class Menu
     {
-        private static Bank bank;
-        // To get access to bank
-        public static void SetBank(Bank instance)
-        {
-            bank = instance;
-        }
-
-        internal static bool MainMenu(User user)
-        {
-            bool RunMenu = true;
-            bool displayMain = true;
-            bool displaySub = true;
-            do
-            {
-                Utilities.DisplayLogo();
-                int option = BankMenu("Account info", "Transactions", "Loan", "Administration", "Log out");
-
-                switch (option)
-                {
-
-                    case 1:
-                        do
-                        {
-                            Utilities.DisplayLogo();
-                            Console.WriteLine($"\u001b[34mBank accounts");
-                            option = BankMenu("Balance", "Account Info", "Transaction History", "Open New Account", "Return to Main Menu");
-                            switch (option)
-                            {
-                                case 1:
-                                    Utilities.DisplayLogo();
-                                    user.GetBalance(user);
-                                    break;
-                                case 2:
-                                    Utilities.DisplayLogo();
-                                    user.GetAccountInfo(user);
-                                    break;
-                                case 3://Transaction History
-                                    break;
-                                case 4:
-                                    Utilities.DisplayLogo();
-                                    BankAccount account = new BankAccount();
-                                    account.AddAccount(user);
-                                    if (account != null)
-                                    {
-                                        user.BankAccounts.Add(account);
-                                    }
-                                    break;
-                                case 5:
-                                    displaySub = false;
-                                    break;
-                            }
-                        } while (displaySub == true);
-                        break;
-
-                    case 2:
-                        do
-                        {
-                            Utilities.DisplayLogo();
-                            Console.WriteLine("\u001b[34mTransactions");
-                            option = BankMenu("Deposit", "Withdraw", "Transfer", "External Transfer", "Back To Main Menu");
-                            switch (option)
-                            {
-                                case 1:
-                                    Utilities.DisplayLogo();
-                                    user.MakeDeposit(user);
-                                    break;
-                                case 2:
-                                    Utilities.DisplayLogo();
-                                    var withdraw = new BankAccount();
-                                    withdraw.MakeWithdraw(user);
-                                    //user.MakeWithdraw(user);
-                                    //Move Method to user and call with ^
-                                    break;
-                                case 3:
-                                    Utilities.DisplayLogo();
-                                    user.MakeTransfer(user);
-                                    break;
-                                case 4:
-                                    Utilities.DisplayLogo();
-                                    Console.WriteLine("Wich AccountNumber do you want to transfer To ");
-                                    string input = Console.ReadLine();
-                                    User newuser = bank.GetUser(input);
-                                    Utilities.DisplayLogo();
-                                    user.MakeExternalTransfer(user, newuser, input);
-                                    break;
-                                case 5:
-                                    displaySub = false;
-                                    break;
-                            }
-                        } while (displaySub == true);
-                        break;
-
-                    case 3:
-                        Utilities.DisplayLogo();
-                        Console.WriteLine("\u001b[34mLoan");
-
-                        break;
-                    case 4:
-                        do
-                        {
-                            Utilities.DisplayLogo();
-                            Console.WriteLine("\u001b[34mAdministration");
-                            option = BankMenu("Add new User", "Set Exchange Rate", " ", "Back To Main Menu");
-                            switch (option)
-                            {
-                                case 1:
-                                    bank.AddUser(user);
-                                    break;
-
-                                case 2:
-                                    break;
-                                case 3:
-                                    break;
-                                case 4:
-                                    displaySub = false;
-                                    break;
-                            }
-                        } while (displaySub == true);
-                        break;
-
-
-                    case 5:
-                        Utilities.DisplayLogo();
-                        option = BankMenu("Return To Login", "Exit");
-                        switch (option)
-                        {
-                            case 1:
-                                Console.WriteLine("Goodbye, you will now be logged out ");
-                                Console.ReadKey();
-                                displayMain = false;
-                                break;
-                            case 2:
-                                Console.WriteLine("Goodbye, closing program");
-                                Console.ReadKey();
-                                RunMenu = false;
-                                displayMain = false;
-                                break;
-                        }
-                        break;
-
-                }
-            } while (displayMain == true);
-            return RunMenu;
-        }
-
         //BankMenu Prints a menu with options selectable via u/down arrowkey and returns an int with the selected option number 
         //to use in a switch. BankMenu has overloads that requires inParameters of 2-6 strings wich in turn becomes the selectable options
         //To call method use -> int x = Menu.BankMenu("option1","option2"(and up to 4 more)); <-
@@ -343,12 +198,12 @@ namespace Grouplab_Bank
             Console.CursorVisible = true;
             return option;
         }
-        internal static BankAccount SelectAccount(User user)
         /*
         Creates a selectable list of accounts using BankMenu overloads.
         Call method with -> BankAccount selectedAccount = Menu.SelectAccount(user); <-
         After checking that List.Count is not 0.
         */
+        internal static BankAccount SelectAccount(User user)
         {
             int? count = user.BankAccounts.Count();
             int option = 0;
