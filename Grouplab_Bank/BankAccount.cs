@@ -175,7 +175,7 @@
             }
         }
 
-        public void GetBalance(User user)
+        public void GetAccountInfo(User user)
         {
             Console.ForegroundColor = ConsoleColor.Green;
             if (user.BankAccounts.Count == 0)

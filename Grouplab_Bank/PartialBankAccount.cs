@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Grouplab_Bank
+﻿namespace Grouplab_Bank
 {
     internal partial class BankAccount
     {
@@ -18,18 +12,18 @@ namespace Grouplab_Bank
             }
             if (user.BankAccounts.Count > 1)
             {
-                GetBalance(user);
+                GetAccountInfo(user);
                 Console.WriteLine("\nWich account do you want to withdraw from?");
                 string thisAccount = Console.ReadLine();
                 Console.WriteLine("\nEnter amount to withdraw:");
-                
+
                 decimal withdrawAmount;
                 while (!decimal.TryParse(Console.ReadLine(), out withdrawAmount))
                 {
                     Console.WriteLine("Try again...");
                 }
                 var selectedAccount = user.BankAccounts.FirstOrDefault(x => x.AccountNumber == thisAccount);
-               
+
                 if (selectedAccount != null)
                 {
                     if (selectedAccount.Balance > withdrawAmount)
@@ -50,19 +44,19 @@ namespace Grouplab_Bank
                     Console.WriteLine("Account not found");
                     Console.ReadKey();
                 }
-               
+
             }
             else
             {
-                GetBalance(user);
+                GetAccountInfo(user);
                 Console.WriteLine("\nEnter amount to withdraw:");
                 decimal amountToWithdraw;
-                while (!decimal.TryParse(Console.ReadLine(),out amountToWithdraw))
+                while (!decimal.TryParse(Console.ReadLine(), out amountToWithdraw))
                 {
                     Console.WriteLine("Try again...");
                 }
                 var onlyAccount = user.BankAccounts.FirstOrDefault();
-               
+
                 if (onlyAccount != null)
                 {
                     if (onlyAccount.Balance > amountToWithdraw)
