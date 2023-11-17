@@ -77,7 +77,7 @@
                         Utilities.DisplayLogo();
                         Console.WriteLine("How long will you save for?");
                         double interestRate = 0.0;
-                        switch (Menu.BankMenu("1 year, 3% rate", "3 years, 5% rate", "3 years, 5% rate"))
+                        switch (Menu.BankMenu("1 year, 3.5% rate", "3 years, 5% rate", "5 years, 7.5% rate"))
                         {
                             case 1:
                                 interestRate = 3.5;
