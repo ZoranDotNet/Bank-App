@@ -48,72 +48,60 @@
         {
             Random random = new Random();
             Utilities.DisplayLogo();
-            Console.WriteLine("What kind of account do you want to open? please choose 1 or 2");
-            Console.WriteLine("1. Account");
-            Console.WriteLine("2. Savings Account");
-
-            string answer = Console.ReadLine();
-
-            if (answer == "1")
+            if (user.BankAccounts.Count >= 5)
             {
-                string accountNr = Convert.ToString(random.Next(100000, 999999));
-                BankAccount bankAccount = new BankAccount(Owner = user, AccountNumber = accountNr, Balance = 0);
-                if (user.BankAccounts.Count >= 5)
-                {
-                    Console.WriteLine("This Bank only allow a maximum of 5 BankAccounts");
-                }
-                else
-                {
-                    user.BankAccounts.Add(bankAccount);
-                    Console.WriteLine("New BankAccount approved");
-                    Console.ReadKey();
-                }
-
-            }
-            else if (answer == "2")
-            {
-
-                Console.WriteLine("How long will you save for? please choose between 1 to 3");
-                Console.WriteLine("1. 1 year, 3% rate");
-                Console.WriteLine("2. 3 years, 5% rate");
-                Console.WriteLine("3. 5 years, 7% rate");
-                string answersaving = Console.ReadLine();
-                double interestRate = 0.0;
-
-                if (answersaving == "1")
-                {
-                    interestRate = 3.0;
-                }
-                else if (answersaving == "2")
-                {
-                    interestRate = 5.0;
-                }
-                else if (answersaving == "3")
-                {
-                    interestRate = 7.0;
-                }
-                else
-                {
-                    Console.WriteLine("Invalid answer, please choose option 1 to 3");
-                    return;
-                }
-                string saveAccount = Convert.ToString(random.Next(100000, 999999));
-                BankAccount savingsAccount = new BankAccount(Owner = user, AccountNumber = saveAccount, Balance = 0, InterestRate = interestRate);
-
-                if (user.BankAccounts.Count >= 5)
-                {
-                    Console.WriteLine("This Bank only allow a maximum of 5 BankAccounts");
-                }
-                else
-                {
-                    user.BankAccounts.Add(savingsAccount);
-                    Console.WriteLine($"New Savings Account approved with {interestRate}% rate");
-                    Console.ReadKey();
-                }
+                Utilities.DisplayLogo();
+                Console.WriteLine("This Bank only allow a maximum of 5 BankAccounts");
+                Console.ReadKey();
             }
             else
             {
-                Console.WriteLine("Invalid answer, please choose option 1 or 2");
+                Console.WriteLine("What kind of account do you want to open? please choose 1 or 2");
+
+                switch (Menu.BankMenu("Account", "Savings Account"))
+                {
+                    case 1:
+                        string accountNr = Convert.ToString(random.Next(100000, 999999));
+                        BankAccount bankAccount = new BankAccount(Owner = user, AccountNumber = accountNr, Balance = 0);
+                        if (user.BankAccounts.Count >= 5)
+                        {
+                            Utilities.DisplayLogo();
+                            Console.WriteLine("This Bank only allow a maximum of 5 BankAccounts");
+                            Console.ReadKey();
+                        }
+                        else
+                        {
+                            Utilities.DisplayLogo();
+                            user.BankAccounts.Add(bankAccount);
+                            Console.WriteLine("New BankAccount approved");
+                            Console.ReadKey();
+                        }
+                        break;
+                    case 2:
+                        Utilities.DisplayLogo();
+                        Console.WriteLine("How long will you save for?");
+                        double interestRate = 0.0;
+                        switch (Menu.BankMenu("1 year, 3% rate", "3 years, 5% rate", "3 years, 5% rate"))
+                        {
+                        case 1:
+                                interestRate = 3.0;
+                                break;
+                            case 2:
+                                interestRate = 5.0;
+                                break;
+                            case 3:
+                                interestRate = 7.0;
+                                break;
+                            }
+                            string saveAccount = Convert.ToString(random.Next(100000, 999999));
+                            BankAccount savingsAccount = new BankAccount(Owner = user, AccountNumber = saveAccount, Balance = 0, InterestRate = interestRate);
+                        user.BankAccounts.Add(savingsAccount);
+                        Utilities.DisplayLogo();
+                        Console.WriteLine($"New Savings Account approved with {interestRate}% rate");
+                            Console.ReadKey();
+                            break;
+                }
+            
             }
 
         }
@@ -252,10 +240,7 @@
                     Console.ReadKey();
                 }
             }
-            else if (userInput == "2")
-            {
-                MakeExternalTransfer(user);
-            }
+            
             else
             {
                 Console.WriteLine("Invalid choice ");
@@ -267,7 +252,7 @@
 
         }
 
-        public void MakeExternalTransfer(User user)
+        public void MakeExternalTransfer(User userFrom, User userTo, string account)
         {
             ListAllBankAccounts(user);
 
