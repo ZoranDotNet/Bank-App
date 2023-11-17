@@ -2,13 +2,10 @@
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             var bank = new Bank();
-            Menu.SetBank(bank);
             bank.Run();
-
-
         }
     }
 }
