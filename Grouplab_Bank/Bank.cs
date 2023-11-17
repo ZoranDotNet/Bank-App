@@ -171,7 +171,7 @@
                 Console.ReadKey();
             }
         }
-        public User? GetUser(string accountNr)
+        public User GetUser(string accountNr)
         {
             foreach (var user in Users)
             {
