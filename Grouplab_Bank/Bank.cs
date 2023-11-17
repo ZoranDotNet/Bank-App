@@ -51,7 +51,7 @@
                                     if (account != null)
                                     {
                                         user.BankAccounts.Add(account);
-                                        user.AddTransaction(account, TransactionType.Open_New_Account, 0);
+                                        user.AddTransaction(account, TransactionType.New_Account, 0);
                                     }
                                     break;
                                 case 5:
