@@ -21,6 +21,7 @@
 
                 Console.WriteLine("\nEnter amount to withdraw:");
                 decimal withdrawAmount;
+                TransactionType type = TransactionType.Withdraw;
                 while (!decimal.TryParse(Console.ReadLine(), out withdrawAmount))
                 {
                     Console.WriteLine("Try again...");
@@ -29,6 +30,7 @@
                 if (selectedAccount.Balance > withdrawAmount)
                 {
                     selectedAccount.Balance -= withdrawAmount;
+                    Addtransaction(selectedAccount, type, withdrawAmount);
                     Console.WriteLine($"You have successfully withdrawn {withdrawAmount} from account {selectedAccount.AccountNumber}");
                     Console.ReadKey();
                 }

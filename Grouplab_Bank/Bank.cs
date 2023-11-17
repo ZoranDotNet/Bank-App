@@ -75,9 +75,7 @@
                                     break;
                                 case 2:
                                     Utilities.DisplayLogo();
-                                    var withdraw = new BankAccount();
-                                    withdraw.MakeWithdraw(user);
-                                    //user.MakeWithdraw(user);
+                                    user.MakeWithdraw(user);
                                     //Move Method to user and call with ^
                                     break;
                                 case 3:
