@@ -40,7 +40,9 @@ namespace Grouplab_Bank
                                     Utilities.DisplayLogo();
                                     user.GetAccountInfo(user);
                                     break;
-                                case 3://Transaction History
+                                case 3:
+                                    Utilities.DisplayLogo();
+                                    user.GetTransactionHistory(user);
                                     break;
                                 case 4:
                                     Utilities.DisplayLogo();
