@@ -78,7 +78,11 @@ namespace Grouplab_Bank
                                     break;
                                 case 4:
                                     Utilities.DisplayLogo();
-
+                                    Console.WriteLine("Wich AccountNumber do you want to transfer To ");
+                                    string input = Console.ReadLine();
+                                    User newuser = bank.GetUser(input);
+                                    Utilities.DisplayLogo();
+                                    user.BankAccounts[0].MakeExternalTransfer(user, newuser, input);
                                     break;
                                 case 5:
                                     displaySub = false;
