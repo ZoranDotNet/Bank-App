@@ -102,6 +102,8 @@
         //needs work
         public void MakeTransfer(User user)
         {
+            TransactionType typeFrom = TransactionType.Transfer_From;
+            TransactionType typeTo = TransactionType.Transfer_To;
             Utilities.DisplayLogo();
             if (user.BankAccounts.Count < 2)
             {
@@ -136,6 +138,8 @@
                         accountNrFrom.Balance -= amount;
 
                         accountNrTo.Balance += amount;
+                        AddTransaction(accountNrFrom, typeFrom, amount);
+                        AddTransaction(accountNrTo, typeTo, amount);
 
                         Utilities.DisplayLogo();
                         Console.WriteLine($"Successful transfer, {accountNrFrom.AccountNumber} transferred to {accountNrTo.AccountNumber}");
@@ -152,7 +156,7 @@
 
             }
         }
-                    //needs work
+                   
         public void MakeExternalTransfer(User userFrom, User userTo, string account)
         {
 
