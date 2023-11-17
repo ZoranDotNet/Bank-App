@@ -1,6 +1,4 @@
-﻿using System.Security.Cryptography.X509Certificates;
-
-namespace Grouplab_Bank
+﻿namespace Grouplab_Bank
 {
     internal partial class User
     {
@@ -55,6 +53,7 @@ namespace Grouplab_Bank
             Utilities.DisplayLogo();
             Console.WriteLine("\nHow much do you want to Deposit");
             decimal depositAmount;
+            TransactionType type = TransactionType.Deposit;
             while (!decimal.TryParse(Console.ReadLine(), out depositAmount))
             {
                 Console.WriteLine("Try again...");
@@ -70,6 +69,7 @@ namespace Grouplab_Bank
             if (selectedAccount != null)
             {
                 selectedAccount.Balance += depositAmount;
+                AddTransaction(selectedAccount, type, depositAmount);
             }
             else
             {
@@ -114,7 +114,6 @@ namespace Grouplab_Bank
                     Console.ReadKey();
                     return;
                 }
-                ListAllBankAccounts(user);
 
                 Console.WriteLine("\n\nWich Account do you want to Transfer From ");
                 string accountNrFrom = Console.ReadLine();
@@ -161,7 +160,6 @@ namespace Grouplab_Bank
         //needs work
         public void MakeExternalTransfer(User userFrom, User userTo, string account)
         {
-            ListAllBankAccounts(userFrom);
 
             Console.WriteLine("\n\nWich Account do you want to Transfer From ");
             string accountNrFrom = Console.ReadLine();

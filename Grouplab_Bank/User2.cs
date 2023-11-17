@@ -22,5 +22,28 @@
             }
             Console.ReadKey();
         }
+
+        public void AddTransaction(BankAccount account, TransactionType type, decimal amount)
+        {
+            DateTime date = DateTime.Today;
+            decimal transactionAmount = 0;
+
+            //This makes it look like -1000 if it is withdraw or transfer from.
+            if (type == TransactionType.Withdraw || type == TransactionType.Transfer_From)
+            {
+                transactionAmount = amount - 2 * amount;
+            }
+            else
+            {
+                transactionAmount = amount;
+            }
+
+            Transaction transaction = new Transaction(date, account, transactionAmount, type);
+            if (account.Transactions == null)
+            {
+                account.Transactions = new List<Transaction>();
+            }
+            account.Transactions.Add(transaction);
+        }
     }
 }
