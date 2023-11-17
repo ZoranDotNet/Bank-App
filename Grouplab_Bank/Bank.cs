@@ -51,6 +51,7 @@
                                     if (account != null)
                                     {
                                         user.BankAccounts.Add(account);
+                                        user.AddTransaction(account, TransactionType.Open_New_Account, 0);
                                     }
                                     break;
                                 case 5:
@@ -192,7 +193,7 @@
             do
             {
                 User LoggedUser = Login();
-                runMenu = Menu.MainMenu(LoggedUser);
+                runMenu = MainMenu(LoggedUser);
             } while (runMenu == true);
         }
         public User Login()
