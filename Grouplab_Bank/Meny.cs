@@ -33,13 +33,13 @@ namespace Grouplab_Bank
                             switch (option)
                             {
                                 case 1:
-                                    Utilities.DisplayLogo();
-                                    var balance = new BankAccount();
-                                    balance.GetBalance(user);
+
                                     break;
                                 case 2://AccountInfo
                                     Utilities.DisplayLogo();
-
+                                    Utilities.DisplayLogo();
+                                    var balance = new BankAccount();
+                                    balance.GetAccountInfo(user);
                                     break;
                                 case 3://Transaction History
 
