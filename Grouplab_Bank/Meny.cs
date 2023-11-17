@@ -2,8 +2,15 @@
 
 namespace Grouplab_Bank
 {
-    public static class Menu
+    internal static class Menu
     {
+        private static Bank bank;
+        // To get access to bank
+        public static void SetBank(Bank instance)
+        {
+            bank = instance;
+        }
+
         internal static bool MainMenu(User user)
         {
             bool RunMenu = true;
@@ -94,8 +101,7 @@ namespace Grouplab_Bank
                             switch (option)
                             {
                                 case 1:
-                                    Bank b = new Bank();
-                                    b.AddUser(user);
+                                    bank.AddUser(user);
                                     break;
 
                                 case 2:
