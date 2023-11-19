@@ -62,8 +62,7 @@
                         Console.WriteLine("New Bank Account approved");
                         Console.ReadKey();
                         return bankAccount;
-                        
-                        break;
+
                     case 2:
                         Utilities.DisplayLogo();
                         Console.WriteLine("How long will you save for?");
@@ -78,7 +77,6 @@
                                 break;
                             case 3:
                                 interestRate = 7.5;
-
                                 break;
                         }
                         string saveAccount = Convert.ToString(random.Next(100000, 999999));
@@ -94,8 +92,6 @@
                         Console.WriteLine($"New Euro Account aprroved.");
                         Console.ReadKey();
                         return euroAccount;
-
-                        break;
                 }
                 return null;
 
