@@ -53,25 +53,16 @@
             {
                 Console.WriteLine("What kind of account do you want to open? please choose 1 or 2");
 
-                switch (Menu.BankMenu("Account", "Savings Account"))
+                switch (Menu.BankMenu("Account", "Savings Account", "EuroAccount"))
                 {
                     case 1:
                         string accountNr = Convert.ToString(random.Next(100000, 999999));
                         BankAccount bankAccount = new BankAccount(Owner = user, AccountNumber = accountNr, Balance = 0);
-                        if (user.BankAccounts.Count >= 5)
-                        {
-                            Utilities.DisplayLogo();
-                            Console.WriteLine("This Bank only allow a maximum of 5 BankAccounts");
-                            Console.ReadKey();
-                            break;
-                        }
-                        else
-                        {
-                            Utilities.DisplayLogo();
-                            Console.WriteLine("New BankAccount approved");
-                            Console.ReadKey();
-                            return bankAccount;
-                        }
+                        Utilities.DisplayLogo();
+                        Console.WriteLine("New BankAccount approved");
+                        Console.ReadKey();
+                        return bankAccount;
+                        
                         break;
                     case 2:
                         Utilities.DisplayLogo();
@@ -87,6 +78,7 @@
                                 break;
                             case 3:
                                 interestRate = 7.5;
+
                                 break;
                         }
                         string saveAccount = Convert.ToString(random.Next(100000, 999999));
@@ -95,6 +87,15 @@
                         Console.WriteLine($"New Savings Account approved with {interestRate}% rate");
                         Console.ReadKey();
                         return savingsAccount;
+                    case 3:
+                        string euroAccountnr = Convert.ToString(random.Next(100000, 999999));
+                        BankAccount euroAccount = new BankAccount(Owner = user, AccountNumber = euroAccountnr, Balance = 0);
+                        Utilities.DisplayLogo();
+                        Console.WriteLine($"New EuroAccount aprroved.");
+                        Console.ReadKey();
+                        return euroAccount;
+
+                        break;
                 }
                 return null;
 
