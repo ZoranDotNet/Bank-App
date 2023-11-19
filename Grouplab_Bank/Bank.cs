@@ -10,6 +10,8 @@
 
             var user = new User("Reidar", "admin", "123", true);
             Users.Add(user);
+            var user2 = new User("Aldor", "aldor", "123", true);
+            Users.Add(user2);
         }
         internal bool MainMenu(User user)
         {
@@ -155,7 +157,7 @@
             if (user.Admin == true)
             {
 
-                Console.WriteLine("Name: ");
+                Console.WriteLine("New Users Name: ");
                 string addName = Console.ReadLine();
                 Console.WriteLine("Username: ");
                 string addUserName = Console.ReadLine();
