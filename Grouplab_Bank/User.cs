@@ -232,6 +232,7 @@
                 }
                 BankAccount selectedAccount = Menu.SelectAccount(user);
 
+                Utilities.DisplayLogo();
                 Console.WriteLine("\nEnter amount to withdraw:");
                 decimal withdrawAmount;
                 TransactionType type = TransactionType.Withdraw;
