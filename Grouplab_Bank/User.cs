@@ -395,42 +395,33 @@
         {
             if (user.Admin == true)
             {
-                Utilities.DisplayLogo();
-                Console.WriteLine("Adjust Exchange Rates");
-                Console.WriteLine($"Current Rates: \nSEK = {Utilities.rates[0].SekToEuro} EUR\nEUR = {Utilities.rates[0].EuroToSek} SEK");
-                switch (Menu.BankMenu("Set SEK Rate", "Set EUR Rate"))
+                bool AdjustRate=true;
+                do
                 {
-                    case 1:
-                        Utilities.DisplayLogo();
-                        Console.WriteLine($"SEK to EUR rate: {Utilities.rates[0].SekToEuro}");
-                        double newSekRate;
-                        while (!double.TryParse(Console.ReadLine(), out newSekRate))
-                        {
+                    Utilities.DisplayLogo();
+                    Console.WriteLine("Adjust Exchange Rates");
+                    Console.WriteLine($"Current Rate: {ExchangeRate.Sek} EUR = {ExchangeRate.Euro} SEK");
+                    //A switch menu is not necessary here but doing it this way makes it easier to add more currencies in the future
+                    switch (Menu.BankMenu("Set EUR Rate", "Return"))
+                    {
+                        case 1:
                             Utilities.DisplayLogo();
-                            Console.WriteLine("Try again...");
-                            Console.ReadKey();
-                        }
-                        ExchangeRate sekRate = Utilities.rates[0];
-                        sekRate.EuroToSek = 1 / newSekRate;
-                        sekRate.SekToEuro = newSekRate;
-                        Utilities.rates[0] = sekRate;
-                        break;
-                    case 2:
-                        Utilities.DisplayLogo();
-                        Console.WriteLine($"EUR to SEK rate: {Utilities.rates[0].EuroToSek}");
-                        double newEurRate;
-                        while (!double.TryParse(Console.ReadLine(), out newEurRate))
-                        {
-                            Utilities.DisplayLogo();
-                            Console.WriteLine("Try again...");
-                            Console.ReadKey();
-                        }
-                        ExchangeRate eurRate = Utilities.rates[0];
-                        eurRate.SekToEuro = 1 / newEurRate;
-                        eurRate.EuroToSek = newEurRate;
-                        Utilities.rates[0] = eurRate;
-                        break;
-                }
+                            Console.WriteLine("Set new value to EUR");
+                            Console.WriteLine($"Current Rate: {ExchangeRate.Sek} EUR = {ExchangeRate.Euro} SEK\n");
+                            double newEurValue;
+                            while (!double.TryParse(Console.ReadLine(), out newEurValue))
+                            {
+                                Utilities.DisplayLogo();
+                                Console.WriteLine("Try again...");
+                                Console.ReadKey();
+                            }
+                            ExchangeRate.Euro = newEurValue;
+                            break;
+                        case 2:
+                            AdjustRate = false;
+                            break;
+                    }
+                } while (AdjustRate);
             }
             else
             {
