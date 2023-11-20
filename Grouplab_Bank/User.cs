@@ -197,9 +197,6 @@
                         }
                     }
 
-
-
-
                 }
 
             }
@@ -233,23 +230,71 @@
 
                 var accountNrTo = userTo.BankAccounts.FirstOrDefault(x => x.AccountNumber == account);
                 TransactionType typeFrom = TransactionType.Transfer_From;
-                TransactionType typrTo = TransactionType.Transfer_To;
+                TransactionType typeTo = TransactionType.Transfer_To;
 
                 if (accountNrFrom != null && accountNrTo != null)
                 {
-                    if (accountNrFrom.Balance > amount)
+                    if (accountNrFrom.Currency == Currencies.Sek && accountNrTo.Currency == Currencies.Euro)
                     {
-                        accountNrFrom.Balance -= amount;
-                        accountNrTo.Balance += amount;
-                        AddTransaction(accountNrFrom, typeFrom, amount);
-                        AddTransaction(accountNrTo, typrTo, amount);
+                        decimal newAmount = MakeExchange(Currencies.Sek, amount);
+                        if (accountNrFrom.Balance >= amount)
+                        {
+                            accountNrFrom.Balance -= amount;
+
+                            accountNrTo.Balance += newAmount;
+                            AddTransaction(accountNrFrom, typeFrom, amount);
+                            AddTransaction(accountNrTo, typeTo, newAmount);
+
+                            Utilities.DisplayLogo();
+                            Console.WriteLine($"Successful transfer, {accountNrFrom.AccountNumber} transferred to {accountNrTo.AccountNumber}");
+                            Console.ReadKey();
+                        }
+                        else
+                        {
+                            Utilities.DisplayLogo();
+                            Console.WriteLine("You do not have sufficient funds in your account");
+                            Console.ReadKey();
+                        }
+                    }
+                    else if (accountNrFrom.Currency == Currencies.Euro && accountNrTo.Currency == Currencies.Sek)
+                    {
+                        decimal newAmount = MakeExchange(Currencies.Euro, amount);
+                        if (accountNrFrom.Balance >= amount)
+                        {
+                            accountNrFrom.Balance -= amount;
+
+                            accountNrTo.Balance += newAmount;
+                            AddTransaction(accountNrFrom, typeFrom, amount);
+                            AddTransaction(accountNrTo, typeTo, newAmount);
+
+                            Utilities.DisplayLogo();
+                            Console.WriteLine($"Successful transfer, {accountNrFrom.AccountNumber} transferred to {accountNrTo.AccountNumber}");
+                            Console.ReadKey();
+                        }
+                        else
+                        {
+                            Utilities.DisplayLogo();
+                            Console.WriteLine("You do not have sufficient funds in your account");
+                            Console.ReadKey();
+                        }
                     }
                     else
                     {
-                        Utilities.DisplayLogo();
-                        Console.WriteLine("You dont have sufficient funds in your Account");
-                        Console.ReadKey();
+                        if (accountNrFrom.Balance > amount)
+                        {
+                            accountNrFrom.Balance -= amount;
+                            accountNrTo.Balance += amount;
+                            AddTransaction(accountNrFrom, typeFrom, amount);
+                            AddTransaction(accountNrTo, typrTo, amount);
+                        }
+                        else
+                        {
+                            Utilities.DisplayLogo();
+                            Console.WriteLine("You dont have sufficient funds in your Account");
+                            Console.ReadKey();
+                        }
                     }
+
                 }
                 else
                 {

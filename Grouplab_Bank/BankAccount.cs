@@ -94,9 +94,7 @@
                         return euroAccount;
                 }
                 return null;
-
             }
-
         }
     }
 }
