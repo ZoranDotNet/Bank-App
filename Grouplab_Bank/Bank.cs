@@ -26,10 +26,8 @@
                 Utilities.DisplayLogo();
                 displaySub = true;
                 int option = Menu.BankMenu("Account info", "Transactions", "Loan", "Administration", "Log out");
-
                 switch (option)
                 {
-
                     case 1:
                         do
                         {
@@ -66,7 +64,6 @@
                             }
                         } while (displaySub == true);
                         break;
-
                     case 2:
                         do
                         {
@@ -82,7 +79,6 @@
                                 case 2:
                                     Utilities.DisplayLogo();
                                     user.MakeWithdraw(user);
-                                    //Move Method to user and call with ^
                                     break;
                                 case 3:
                                     Utilities.DisplayLogo();
@@ -102,28 +98,26 @@
                             }
                         } while (displaySub == true);
                         break;
-
                     case 3:
                         Utilities.DisplayLogo();
                         Console.WriteLine("\u001b[34mLoan");
-
                         break;
                     case 4:
                         do
                         {
                             Utilities.DisplayLogo();
                             Console.WriteLine("\u001b[34mAdministration");
-                            option = Menu.BankMenu("Add new User", "Set Exchange Rate", " ", "Back To Main Menu");
+                            option = Menu.BankMenu("Add new User", "Add new Admin", "Set Exchange Rate", "Back To Main Menu");
                             switch (option)
                             {
                                 case 1:
                                     AddUser(user);
                                     break;
-
                                 case 2:
-                                    user.AdjustExchangeRate(user);
+                                    AddAdmin(user);
                                     break;
                                 case 3:
+                                    user.AdjustExchangeRate(user);
                                     break;
                                 case 4:
                                     displaySub = false;
@@ -131,8 +125,6 @@
                             }
                         } while (displaySub == true);
                         break;
-
-
                     case 5:
                         Utilities.DisplayLogo();
                         option = Menu.BankMenu("Return To Login", "Exit");
@@ -151,17 +143,14 @@
                                 break;
                         }
                         break;
-
                 }
             } while (displayMain == true);
             return RunMenu;
         }
-
         public void AddUser(User user)
         {
             if (user.Admin == true)
             {
-
                 Console.WriteLine("New Users Name: ");
                 string addName = Console.ReadLine();
                 Console.WriteLine("Username: ");
@@ -210,7 +199,6 @@
             }
             return null;
         }
-
         public void Run()
         {
             bool runMenu;
@@ -271,6 +259,5 @@
 
             return LoggedUser;
         }
-
     }
 }
