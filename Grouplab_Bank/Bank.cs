@@ -12,7 +12,6 @@
             Users.Add(user);
             var user2 = new User("Aldor", "aldor", "123", true);
             Users.Add(user2);
-
         }
         internal bool MainMenu(User user)
         {
