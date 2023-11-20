@@ -53,33 +53,28 @@ namespace Grouplab_Bank
                 Console.WriteLine($"You have to pay {interest} kr in interest on your loan yearly");
                 Console.ReadKey();
                 
-                    Utilities.DisplayLogo();
-                    
-                    if (user.BankAccounts.Count == 0) 
-                    {
-                        Console.WriteLine("\nYou have no BankAccount ");
+                Utilities.DisplayLogo();
+                if (user.BankAccounts.Count > 1)
+                {
+                    Console.WriteLine("Choose bankaccount to wich your loan will be deposited.");
+                    Console.ReadKey();
+                }
 
-                        Console.ReadKey();
-                        return;
-                    }
-                    else
-                    {
-                        if (user.BankAccounts.Count > 1)
-                        {
-                            Console.WriteLine("Choose bankaccount to wich your loan will be deposited.");
-                        Console.ReadKey();
-                        }
+                BankAccount selectedAccount = Menu.SelectAccount(user);
 
-                        BankAccount selectedAccount = Menu.SelectAccount(user);
+                selectedAccount.Balance += loan;
+                Console.WriteLine($"Your {loan} kr loan has been approved and deposited to account {selectedAccount.AccountNumber}");
+                Console.ReadKey();
 
-                        selectedAccount.Balance += loan;
-                        Console.WriteLine($"Your {loan} kr loan has been approved and deposited to account {selectedAccount.AccountNumber}");
-                        Console.ReadKey();
+                AddTransaction(selectedAccount,type,loan);
 
 
-                    }
 
-                
+
+
+
+
+
             }
         }
     }
