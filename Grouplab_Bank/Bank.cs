@@ -24,6 +24,7 @@
             do
             {
                 Utilities.DisplayLogo();
+                displaySub = true;
                 int option = Menu.BankMenu("Account info", "Transactions", "Loan", "Administration", "Log out");
 
                 switch (option)
@@ -172,6 +173,25 @@
             else
             {
                 Console.WriteLine("You have to be Admin to create new users");
+                Console.ReadKey();
+            }
+        }
+        public void AddAdmin(User user)
+        {
+            if (user.Admin == true)
+            {
+                Console.WriteLine("New Admin Name: ");
+                string adminName = Console.ReadLine();
+                Console.WriteLine("Username: ");
+                string adminUserName = Console.ReadLine();
+                Console.WriteLine("Password: ");
+                string adminPassword = Console.ReadLine();
+                var newadmin = new User(adminName, adminUserName, adminPassword, true);
+                Users.Add(newadmin);
+            }
+            else
+            {
+                Console.WriteLine("You have to be Admin to create a new admin");
                 Console.ReadKey();
             }
         }
