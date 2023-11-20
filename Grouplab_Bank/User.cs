@@ -285,7 +285,7 @@
                             accountNrFrom.Balance -= amount;
                             accountNrTo.Balance += amount;
                             AddTransaction(accountNrFrom, typeFrom, amount);
-                            AddTransaction(accountNrTo, typrTo, amount);
+                            AddTransaction(accountNrTo, typeTo, amount);
                         }
                         else
                         {
