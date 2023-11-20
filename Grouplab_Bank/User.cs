@@ -368,13 +368,8 @@
         {
             double exchangeRate = 0;
             decimal newAmount;
-            double sek = 0;
-            double euro = 0;
-            foreach (var item in Utilities.rates)
-            {
-                sek = item.Sek;
-                euro = item.Euro;
-            }
+            double sek = ExchangeRate.Sek;
+            double euro = ExchangeRate.Euro;
 
             //This is from Sek to Euro
             if (curFrom == Currencies.Sek)
@@ -389,13 +384,12 @@
                 newAmount = amount * Convert.ToDecimal(exchangeRate);
                 return newAmount;
             }
-
         }
         public void AdjustExchangeRate(User user)
         {
             if (user.Admin == true)
             {
-                bool AdjustRate=true;
+                bool AdjustRate = true;
                 do
                 {
                     Utilities.DisplayLogo();
