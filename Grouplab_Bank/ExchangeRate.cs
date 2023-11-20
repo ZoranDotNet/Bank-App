@@ -2,8 +2,8 @@
 {
     internal class ExchangeRate
     {
-        public static double Sek { get; set; }
-        public static double Euro { get; set; }
+        public static double Sek { get; set; } = 1;
+        public static double Euro { get; set; } = 10.78;
 
         public ExchangeRate(double sek, double euro)
         {

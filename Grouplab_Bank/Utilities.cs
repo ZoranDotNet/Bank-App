@@ -25,8 +25,5 @@
 
         }
 
-        public static List<ExchangeRate> rates = new List<ExchangeRate>();
-
-
     }
 }
