@@ -206,44 +206,58 @@
         }
         public void MakeExternalTransfer(User userFrom, User userTo, string account)
         {
-            if (userFrom.BankAccounts.Count > 1)
-            {
-                Console.WriteLine("\n\nWich Account do you want to Transfer From ");
-            }
-            BankAccount accountNrFrom = Menu.SelectAccount(userFrom);
-            Console.WriteLine("How much do You want to Transfer ");
 
-            decimal amount;
-            while (!decimal.TryParse(Console.ReadLine(), out amount))
-            {
-                Console.Write("Try again.. ");
-            }
 
-            var accountNrTo = userTo.BankAccounts.FirstOrDefault(x => x.AccountNumber == account);
-            TransactionType typeFrom = TransactionType.Transfer_From;
-            TransactionType typrTo = TransactionType.Transfer_To;
-
-            if (accountNrFrom != null && accountNrTo != null)
+            if (userFrom.BankAccounts == null)
             {
-                if (accountNrFrom.Balance > amount)
-                {
-                    accountNrFrom.Balance -= amount;
-                    accountNrTo.Balance += amount;
-                    AddTransaction(accountNrFrom, typeFrom, amount);
-                    AddTransaction(accountNrTo, typrTo, amount);
-                }
-                else
-                {
-                    Console.WriteLine("You dont have sufficient funds in your Account");
-                    Console.ReadKey();
-                }
+                Utilities.DisplayLogo();
+                Console.WriteLine("You have no accounts:");
             }
             else
             {
-                Console.WriteLine("Could not find the Account");
-                Console.ReadKey();
-            }
+                if (userFrom.BankAccounts.Count > 1)
+                {
+                    Utilities.DisplayLogo();
+                    Console.WriteLine("\n\nWich Account do you want to Transfer From ");
+                }
+                Utilities.DisplayLogo();
+                BankAccount accountNrFrom = Menu.SelectAccount(userFrom);
+                Utilities.DisplayLogo();
+                Console.WriteLine("How much do You want to Transfer ");
 
+                decimal amount;
+                while (!decimal.TryParse(Console.ReadLine(), out amount))
+                {
+                    Console.Write("Try again.. ");
+                }
+
+                var accountNrTo = userTo.BankAccounts.FirstOrDefault(x => x.AccountNumber == account);
+                TransactionType typeFrom = TransactionType.Transfer_From;
+                TransactionType typrTo = TransactionType.Transfer_To;
+
+                if (accountNrFrom != null && accountNrTo != null)
+                {
+                    if (accountNrFrom.Balance > amount)
+                    {
+                        accountNrFrom.Balance -= amount;
+                        accountNrTo.Balance += amount;
+                        AddTransaction(accountNrFrom, typeFrom, amount);
+                        AddTransaction(accountNrTo, typrTo, amount);
+                    }
+                    else
+                    {
+                        Utilities.DisplayLogo();
+                        Console.WriteLine("You dont have sufficient funds in your Account");
+                        Console.ReadKey();
+                    }
+                }
+                else
+                {
+                    Utilities.DisplayLogo();
+                    Console.WriteLine("Could not find the Account");
+                    Console.ReadKey();
+                }
+            }
         }
         public void GetBalance(User user)
 
