@@ -1,18 +1,15 @@
-﻿using System.Xml.Schema;
-
-namespace Grouplab_Bank
+﻿namespace Grouplab_Bank
 {
     internal partial class User
     {
-       
-        private decimal GetInterest(decimal loan,decimal interestRate = 0.05m)
+
+        private decimal GetInterest(decimal loan, decimal interestRate = 0.05m)
         {
             decimal interest = loan * interestRate;
             return interest;
         }
         public void LoanMoney(User user)
         {
-           
             if (user.BankAccounts.Count == 0)
             {
                 Utilities.DisplayLogo();
@@ -32,15 +29,14 @@ namespace Grouplab_Bank
             Console.WriteLine($"You can borrow up to {maxLoanAmount} sek.");
             Console.WriteLine("How much do you want to borrow?");
             decimal loan;
-           
+
             TransactionType type = TransactionType.Loan;
             while (!decimal.TryParse(Console.ReadLine(), out loan))
             {
                 Console.Write("Try again.. ");
                 Console.ReadKey();
-                
             }
-            
+
             if (maxLoanAmount < loan)
             {
                 Console.WriteLine("You cant loan that much money.");
@@ -52,7 +48,7 @@ namespace Grouplab_Bank
                 decimal interest = GetInterest(loan);
                 Console.WriteLine($"You have to pay {interest} kr in interest on your loan yearly");
                 Console.ReadKey();
-                
+
                 Utilities.DisplayLogo();
                 if (user.BankAccounts.Count > 1)
                 {
@@ -63,18 +59,9 @@ namespace Grouplab_Bank
                 BankAccount selectedAccount = Menu.SelectAccount(user);
 
                 selectedAccount.Balance += loan;
+                AddTransaction(selectedAccount, type, loan);
                 Console.WriteLine($"Your {loan} kr loan has been approved and deposited to account {selectedAccount.AccountNumber}");
                 Console.ReadKey();
-
-                AddTransaction(selectedAccount,type,loan);
-
-
-
-
-
-
-
-
             }
         }
     }
