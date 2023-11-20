@@ -121,6 +121,7 @@
                                     break;
 
                                 case 2:
+                                    user.AdjustExchangeRate(user);
                                     break;
                                 case 3:
                                     break;

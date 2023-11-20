@@ -206,44 +206,58 @@
         }
         public void MakeExternalTransfer(User userFrom, User userTo, string account)
         {
-            if (userFrom.BankAccounts.Count > 1)
-            {
-                Console.WriteLine("\n\nWich Account do you want to Transfer From ");
-            }
-            BankAccount accountNrFrom = Menu.SelectAccount(userFrom);
-            Console.WriteLine("How much do You want to Transfer ");
 
-            decimal amount;
-            while (!decimal.TryParse(Console.ReadLine(), out amount))
-            {
-                Console.Write("Try again.. ");
-            }
 
-            var accountNrTo = userTo.BankAccounts.FirstOrDefault(x => x.AccountNumber == account);
-            TransactionType typeFrom = TransactionType.Transfer_From;
-            TransactionType typrTo = TransactionType.Transfer_To;
-
-            if (accountNrFrom != null && accountNrTo != null)
+            if (userFrom.BankAccounts == null)
             {
-                if (accountNrFrom.Balance > amount)
-                {
-                    accountNrFrom.Balance -= amount;
-                    accountNrTo.Balance += amount;
-                    AddTransaction(accountNrFrom, typeFrom, amount);
-                    AddTransaction(accountNrTo, typrTo, amount);
-                }
-                else
-                {
-                    Console.WriteLine("You dont have sufficient funds in your Account");
-                    Console.ReadKey();
-                }
+                Utilities.DisplayLogo();
+                Console.WriteLine("You have no accounts:");
             }
             else
             {
-                Console.WriteLine("Could not find the Account");
-                Console.ReadKey();
-            }
+                if (userFrom.BankAccounts.Count > 1)
+                {
+                    Utilities.DisplayLogo();
+                    Console.WriteLine("\n\nWich Account do you want to Transfer From ");
+                }
+                Utilities.DisplayLogo();
+                BankAccount accountNrFrom = Menu.SelectAccount(userFrom);
+                Utilities.DisplayLogo();
+                Console.WriteLine("How much do You want to Transfer ");
 
+                decimal amount;
+                while (!decimal.TryParse(Console.ReadLine(), out amount))
+                {
+                    Console.Write("Try again.. ");
+                }
+
+                var accountNrTo = userTo.BankAccounts.FirstOrDefault(x => x.AccountNumber == account);
+                TransactionType typeFrom = TransactionType.Transfer_From;
+                TransactionType typrTo = TransactionType.Transfer_To;
+
+                if (accountNrFrom != null && accountNrTo != null)
+                {
+                    if (accountNrFrom.Balance > amount)
+                    {
+                        accountNrFrom.Balance -= amount;
+                        accountNrTo.Balance += amount;
+                        AddTransaction(accountNrFrom, typeFrom, amount);
+                        AddTransaction(accountNrTo, typrTo, amount);
+                    }
+                    else
+                    {
+                        Utilities.DisplayLogo();
+                        Console.WriteLine("You dont have sufficient funds in your Account");
+                        Console.ReadKey();
+                    }
+                }
+                else
+                {
+                    Utilities.DisplayLogo();
+                    Console.WriteLine("Could not find the Account");
+                    Console.ReadKey();
+                }
+            }
         }
         public void GetBalance(User user)
 
@@ -350,7 +364,6 @@
             }
             account.Transactions.Add(transaction);
         }
-
         public decimal MakeExchange(Currencies curFrom, decimal amount)
         {
             double exchangeRate = 0;
@@ -377,6 +390,53 @@
             else
             {
                 return amount;
+            }
+        }
+        public void AdjustExchangeRate(User user)
+        {
+            if (user.Admin == true)
+            {
+                Utilities.DisplayLogo();
+                Console.WriteLine("Adjust Exchange Rates");
+                Console.WriteLine($"Current Rates: \nSEK = {Utilities.rates[0].SekToEuro} EUR\nEUR = {Utilities.rates[0].EuroToSek} SEK");
+                switch (Menu.BankMenu("Set SEK Rate", "Set EUR Rate"))
+                {
+                    case 1:
+                        Utilities.DisplayLogo();
+                        Console.WriteLine($"SEK to EUR rate: {Utilities.rates[0].SekToEuro}");
+                        double newSekRate;
+                        while (!double.TryParse(Console.ReadLine(), out newSekRate))
+                        {
+                            Utilities.DisplayLogo();
+                            Console.WriteLine("Try again...");
+                            Console.ReadKey();
+                        }
+                        ExchangeRate sekRate = Utilities.rates[0];
+                        sekRate.EuroToSek = 1 / newSekRate;
+                        sekRate.SekToEuro = newSekRate;
+                        Utilities.rates[0] = sekRate;
+                        break;
+                    case 2:
+                        Utilities.DisplayLogo();
+                        Console.WriteLine($"EUR to SEK rate: {Utilities.rates[0].EuroToSek}");
+                        double newEurRate;
+                        while (!double.TryParse(Console.ReadLine(), out newEurRate))
+                        {
+                            Utilities.DisplayLogo();
+                            Console.WriteLine("Try again...");
+                            Console.ReadKey();
+                        }
+                        ExchangeRate eurRate = Utilities.rates[0];
+                        eurRate.SekToEuro = 1 / newEurRate;
+                        eurRate.EuroToSek = newEurRate;
+                        Utilities.rates[0] = eurRate;
+                        break;
+                }
+            }
+            else
+            {
+                Utilities.DisplayLogo();
+                Console.WriteLine("Insufficient privileges");
             }
         }
     }
