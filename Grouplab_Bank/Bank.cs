@@ -97,7 +97,7 @@
                         break;
                     case 3:
                         Utilities.DisplayLogo();
-                        Console.WriteLine("\u001b[34mLoan");
+                        user.LoanMoney(user);
                         break;
                     case 4:
                         do
