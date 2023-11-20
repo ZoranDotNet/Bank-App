@@ -368,27 +368,30 @@
         {
             double exchangeRate = 0;
             decimal newAmount;
+            double sek = 0;
+            double euro = 0;
+            foreach (var item in Utilities.rates)
+            {
+                sek = item.Sek;
+                euro = item.Euro;
+            }
+
             //This is from Sek to Euro
             if (curFrom == Currencies.Sek)
             {
-                foreach (var item in Utilities.rates)
-                {
-                    exchangeRate = item.SekToEuro;
-                }
+                exchangeRate = sek / euro;
                 newAmount = amount * Convert.ToDecimal(exchangeRate);
                 return newAmount;
             }
             else if (curFrom == Currencies.Euro)
             {
-                foreach (var item in Utilities.rates)
-                {
-                    exchangeRate = item.EuroToSek;
-                }
+                exchangeRate = euro * sek;
                 newAmount = amount * Convert.ToDecimal(exchangeRate);
                 return newAmount;
             }
             else
             {
+                Console.WriteLine("Something went wrong");
                 return amount;
             }
         }

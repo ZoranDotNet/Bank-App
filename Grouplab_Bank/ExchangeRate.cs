@@ -2,13 +2,13 @@
 {
     internal class ExchangeRate
     {
-        public double SekToEuro { get; set; }
-        public double EuroToSek { get; set; }
+        public double Sek { get; set; }
+        public double Euro { get; set; }
 
-        public ExchangeRate(double sekToEuro, double euroToSek)
+        public ExchangeRate(double sek, double euro)
         {
-            SekToEuro = sekToEuro;
-            EuroToSek = euroToSek;
+            Sek = sek;
+            Euro = euro;
         }
     }
 }
