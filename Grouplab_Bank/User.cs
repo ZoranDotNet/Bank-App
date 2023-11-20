@@ -383,17 +383,13 @@
                 newAmount = amount * Convert.ToDecimal(exchangeRate);
                 return newAmount;
             }
-            else if (curFrom == Currencies.Euro)
+            else //This is Euro to Sek
             {
                 exchangeRate = euro * sek;
                 newAmount = amount * Convert.ToDecimal(exchangeRate);
                 return newAmount;
             }
-            else
-            {
-                Console.WriteLine("Something went wrong");
-                return amount;
-            }
+
         }
         public void AdjustExchangeRate(User user)
         {
