@@ -130,24 +130,75 @@
                 }
                 if (accountNrFrom != null && accountNrTo != null)
                 {
-                    if (accountNrFrom.Balance >= amount)
+                    if (accountNrFrom.Currency == Currencies.Sek && accountNrTo.Currency == Currencies.Euro)
                     {
-                        accountNrFrom.Balance -= amount;
+                        decimal newAmount = MakeExchange(Currencies.Sek, amount);
+                        if (accountNrFrom.Balance >= amount)
+                        {
+                            accountNrFrom.Balance -= amount;
 
-                        accountNrTo.Balance += amount;
-                        AddTransaction(accountNrFrom, typeFrom, amount);
-                        AddTransaction(accountNrTo, typeTo, amount);
+                            accountNrTo.Balance += newAmount;
+                            AddTransaction(accountNrFrom, typeFrom, amount);
+                            AddTransaction(accountNrTo, typeTo, newAmount);
 
-                        Utilities.DisplayLogo();
-                        Console.WriteLine($"Successful transfer, {accountNrFrom.AccountNumber} transferred to {accountNrTo.AccountNumber}");
-                        Console.ReadKey();
+                            Utilities.DisplayLogo();
+                            Console.WriteLine($"Successful transfer, {accountNrFrom.AccountNumber} transferred to {accountNrTo.AccountNumber}");
+                            Console.ReadKey();
+                        }
+                        else
+                        {
+                            Utilities.DisplayLogo();
+                            Console.WriteLine("You do not have sufficient funds in your account");
+                            Console.ReadKey();
+                        }
+
+                    }
+                    else if (accountNrFrom.Currency == Currencies.Euro && accountNrTo.Currency == Currencies.Sek)
+                    {
+                        decimal newAmount = MakeExchange(Currencies.Euro, amount);
+                        if (accountNrFrom.Balance >= amount)
+                        {
+                            accountNrFrom.Balance -= amount;
+
+                            accountNrTo.Balance += newAmount;
+                            AddTransaction(accountNrFrom, typeFrom, amount);
+                            AddTransaction(accountNrTo, typeTo, newAmount);
+
+                            Utilities.DisplayLogo();
+                            Console.WriteLine($"Successful transfer, {accountNrFrom.AccountNumber} transferred to {accountNrTo.AccountNumber}");
+                            Console.ReadKey();
+                        }
+                        else
+                        {
+                            Utilities.DisplayLogo();
+                            Console.WriteLine("You do not have sufficient funds in your account");
+                            Console.ReadKey();
+                        }
                     }
                     else
                     {
-                        Utilities.DisplayLogo();
-                        Console.WriteLine("You do not have sufficient funds in your account");
-                        Console.ReadKey();
+                        if (accountNrFrom.Balance >= amount)
+                        {
+                            accountNrFrom.Balance -= amount;
+
+                            accountNrTo.Balance += amount;
+                            AddTransaction(accountNrFrom, typeFrom, amount);
+                            AddTransaction(accountNrTo, typeTo, amount);
+
+                            Utilities.DisplayLogo();
+                            Console.WriteLine($"Successful transfer, {accountNrFrom.AccountNumber} transferred to {accountNrTo.AccountNumber}");
+                            Console.ReadKey();
+                        }
+                        else
+                        {
+                            Utilities.DisplayLogo();
+                            Console.WriteLine("You do not have sufficient funds in your account");
+                            Console.ReadKey();
+                        }
                     }
+
+
+
 
                 }
 
@@ -300,6 +351,33 @@
             account.Transactions.Add(transaction);
         }
 
-
+        public decimal MakeExchange(Currencies curFrom, decimal amount)
+        {
+            double exchangeRate = 0;
+            decimal newAmount;
+            //This is from Sek to Euro
+            if (curFrom == Currencies.Sek)
+            {
+                foreach (var item in Utilities.rates)
+                {
+                    exchangeRate = item.SekToEuro;
+                }
+                newAmount = amount * Convert.ToDecimal(exchangeRate);
+                return newAmount;
+            }
+            else if (curFrom == Currencies.Euro)
+            {
+                foreach (var item in Utilities.rates)
+                {
+                    exchangeRate = item.EuroToSek;
+                }
+                newAmount = amount * Convert.ToDecimal(exchangeRate);
+                return newAmount;
+            }
+            else
+            {
+                return amount;
+            }
+        }
     }
 }

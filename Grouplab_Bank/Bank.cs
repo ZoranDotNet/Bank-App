@@ -12,6 +12,9 @@
             Users.Add(user);
             var user2 = new User("Aldor", "aldor", "123", true);
             Users.Add(user2);
+
+            ExchangeRate rate = new ExchangeRate(0.086, 10.78);
+            Utilities.rates.Add(rate);
         }
         internal bool MainMenu(User user)
         {
