@@ -99,7 +99,7 @@
                     Console.WriteLine($"*  {item.AccountNumber,-8} **  {item.Balance.ToString("N2"),-13} **    {item.Currency,-7} **       {item.InterestRate,-6} **  {item.Owner.Name,-10}   *");
                     Console.WriteLine("******************************************************************************");
                 }
-
+                Console.WriteLine($"Debt: {user.Debt.ToString("N2")}");
                 Console.ReadKey();
             }
         }
@@ -459,11 +459,6 @@
                 Console.WriteLine("Insufficient privileges");
             }
         }
-        private decimal GetInterest(decimal loan, decimal interestRate = 0.05m)
-        {
-            decimal interest = loan * interestRate;
-            return interest;
-        }
         public void LoanMoney(User user)
         {
             if (user.BankAccounts.Count == 0)
@@ -476,6 +471,7 @@
 
             decimal totalSekAmount = 0;
             decimal totalEuroAmount = 0;
+            decimal debt = user.Debt;
 
             foreach (var item in user.BankAccounts)
             {
@@ -486,7 +482,7 @@
                 totalSekAmount += item.Balance;
             }
             decimal totalAmount = totalSekAmount + totalEuroAmount;
-            decimal maxLoanAmount = totalAmount * 5 - user.Debt;
+            decimal maxLoanAmount = (totalAmount - debt) * 5;
 
             Console.WriteLine($"You can borrow up to {maxLoanAmount.ToString("N2")} sek.");
             Console.WriteLine("How much do you want to borrow?");
@@ -503,7 +499,7 @@
             }
             else
             {
-                decimal interest = GetInterest(loan);
+                decimal interest = CalculateInterest(5, loan);
                 Console.WriteLine($"You have to pay {interest.ToString("N2")} kr in interest on your loan yearly");
                 Console.ReadKey();
 
