@@ -9,6 +9,7 @@
         public int FailedLogin { get; set; } = 0;
         public bool IsLocked { get; set; } = false;
         public List<BankAccount>? BankAccounts { get; set; }
+        public decimal Debt { get; set; } = 0;
 
         public User()
         {
@@ -31,7 +32,15 @@
             Admin = admin;
             BankAccounts = new List<BankAccount>();
         }
-
+        private decimal EnterAmount()
+        {
+            decimal amount;
+            while (!decimal.TryParse(Console.ReadLine(), out amount))
+            {
+                Console.Write("Try again.. ");
+            }
+            return amount;
+        }
         private decimal CalculateInterest(double interestRate, decimal amount)
         {
             decimal interestToPay = amount * Convert.ToDecimal(interestRate) / 100;
@@ -51,12 +60,8 @@
             BankAccount selectedAccount = Menu.SelectAccount(user);
             Utilities.DisplayLogo();
             Console.WriteLine("\nHow much do you want to Deposit");
-            decimal depositAmount;
+            decimal depositAmount = EnterAmount();
             TransactionType type = TransactionType.Deposit;
-            while (!decimal.TryParse(Console.ReadLine(), out depositAmount))
-            {
-                Console.WriteLine("Try again...");
-            }
 
             if (selectedAccount.InterestRate > 0)
             {
@@ -94,7 +99,7 @@
                     Console.WriteLine($"*  {item.AccountNumber,-8} **  {item.Balance.ToString("N2"),-13} **    {item.Currency,-7} **       {item.InterestRate,-6} **  {item.Owner.Name,-10}   *");
                     Console.WriteLine("******************************************************************************");
                 }
-
+                Console.WriteLine($"Debt: {user.Debt.ToString("N2")}");
                 Console.ReadKey();
             }
         }
@@ -122,12 +127,8 @@
 
                 Utilities.DisplayLogo();
                 Console.WriteLine("How much do You want to Transfer ");
-                decimal amount;
+                decimal amount = EnterAmount();
 
-                while (!decimal.TryParse(Console.ReadLine(), out amount))
-                {
-                    Console.Write("Try again.. ");
-                }
                 if (accountNrFrom != null && accountNrTo != null)
                 {
                     if (accountNrFrom.Currency == Currencies.Sek && accountNrTo.Currency == Currencies.Euro)
@@ -203,8 +204,6 @@
         }
         public void MakeExternalTransfer(User userFrom, User userTo, string account)
         {
-
-
             if (userFrom.BankAccounts == null)
             {
                 Utilities.DisplayLogo();
@@ -222,11 +221,7 @@
                 Utilities.DisplayLogo();
                 Console.WriteLine("How much do You want to Transfer ");
 
-                decimal amount;
-                while (!decimal.TryParse(Console.ReadLine(), out amount))
-                {
-                    Console.Write("Try again.. ");
-                }
+                decimal amount = EnterAmount();
 
                 var accountNrTo = userTo.BankAccounts.FirstOrDefault(x => x.AccountNumber == account);
                 TransactionType typeFrom = TransactionType.Transfer_From;
@@ -344,18 +339,14 @@
 
                 Utilities.DisplayLogo();
                 Console.WriteLine("\nEnter amount to withdraw:");
-                decimal withdrawAmount;
+                decimal withdrawAmount = EnterAmount();
                 TransactionType type = TransactionType.Withdraw;
-                while (!decimal.TryParse(Console.ReadLine(), out withdrawAmount))
-                {
-                    Console.WriteLine("Try again...");
-                }
 
                 if (selectedAccount.Balance > withdrawAmount)
                 {
                     selectedAccount.Balance -= withdrawAmount;
                     AddTransaction(selectedAccount, type, withdrawAmount);
-                    Console.WriteLine($"You have successfully withdrawn {withdrawAmount} from account {selectedAccount.AccountNumber}");
+                    Console.WriteLine($"You have successfully withdrawn {withdrawAmount.ToString("N2")} from account {selectedAccount.AccountNumber}");
                     Console.ReadKey();
                 }
                 else
@@ -425,7 +416,7 @@
             }
             else //This is Euro to Sek
             {
-                exchangeRate = euro * sek;
+                exchangeRate = euro;
                 newAmount = amount * Convert.ToDecimal(exchangeRate);
                 return newAmount;
             }
@@ -466,6 +457,66 @@
             {
                 Utilities.DisplayLogo();
                 Console.WriteLine("Insufficient privileges");
+            }
+        }
+        public void LoanMoney(User user)
+        {
+            if (user.BankAccounts.Count == 0)
+            {
+                Utilities.DisplayLogo();
+                Console.WriteLine("\nYou have no BankAccount ");
+                Console.ReadKey();
+                return;
+            }
+
+            decimal totalSekAmount = 0;
+            decimal totalEuroAmount = 0;
+            decimal debt = user.Debt;
+
+            foreach (var item in user.BankAccounts)
+            {
+                if (item.Currency == Currencies.Euro)
+                {
+                    totalEuroAmount = MakeExchange(Currencies.Euro, item.Balance);
+                }
+                totalSekAmount += item.Balance;
+            }
+            decimal totalAmount = totalSekAmount + totalEuroAmount;
+            decimal maxLoanAmount = (totalAmount - debt) * 5;
+
+            Console.WriteLine($"You can borrow up to {maxLoanAmount.ToString("N2")} sek.");
+            Console.WriteLine("How much do you want to borrow?");
+            decimal loan;
+
+            TransactionType type = TransactionType.Loan;
+            loan = EnterAmount();
+
+            if (maxLoanAmount < loan)
+            {
+                Console.WriteLine("You cant loan that much money.");
+                Console.ReadKey();
+                return;
+            }
+            else
+            {
+                decimal interest = CalculateInterest(5, loan);
+                Console.WriteLine($"You have to pay {interest.ToString("N2")} kr in interest on your loan yearly");
+                Console.ReadKey();
+
+                Utilities.DisplayLogo();
+                if (user.BankAccounts.Count > 1)
+                {
+                    Console.WriteLine("Choose bankaccount to wich your loan will be deposited.");
+                    Console.ReadKey();
+                }
+
+                BankAccount selectedAccount = Menu.SelectAccount(user);
+
+                selectedAccount.Balance += loan;
+                user.Debt = loan;
+                AddTransaction(selectedAccount, type, loan);
+                Console.WriteLine($"Your {loan.ToString("N2")} kr loan has been approved and deposited to account {selectedAccount.AccountNumber}");
+                Console.ReadKey();
             }
         }
     }
