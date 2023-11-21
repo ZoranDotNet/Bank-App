@@ -24,6 +24,6 @@
             Console.Write("\u001b[34m");
 
         }
-
+        public static List<ExchangeRate> rates = new List<ExchangeRate>();
     }
 }
