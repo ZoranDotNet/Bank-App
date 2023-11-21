@@ -18,18 +18,20 @@
                 return;
             }
 
-            decimal totalAmount = 0;
-
+            decimal totalSekAmount = 0;
+            decimal totalEuroAmount = 0;
+           
             foreach (var item in user.BankAccounts)
             {
                 if (item.Currency == Currencies.Euro)
                 {
-                    MakeExchange(Currencies.Euro, item.Balance);
+                    totalEuroAmount = MakeExchange(Currencies.Euro, item.Balance);
                 }
-                totalAmount += item.Balance;
+                totalSekAmount += item.Balance;
             }
-
+            decimal totalAmount = totalSekAmount + totalEuroAmount;
             decimal maxLoanAmount = totalAmount * 5;
+           
             Console.WriteLine($"You can borrow up to {maxLoanAmount.ToString("N2")} sek.");
             Console.WriteLine("How much do you want to borrow?");
             decimal loan;
