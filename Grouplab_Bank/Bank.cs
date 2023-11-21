@@ -48,12 +48,9 @@
                                 case 4:
                                     Utilities.DisplayLogo();
                                     BankAccount account = new BankAccount();
-                                    account.AddAccount(user);
-                                    if (account != null)
-                                    {
-                                        user.BankAccounts.Add(account);
-                                        user.AddTransaction(account, TransactionType.New_Account, 0);
-                                    }
+                                    account = user.AddAccount(user);
+                                    user.BankAccounts.Add(account);
+                                    user.AddTransaction(account, TransactionType.New_Account, 0);
                                     break;
                                 case 5:
                                     displaySub = false;
