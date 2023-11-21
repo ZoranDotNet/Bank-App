@@ -22,11 +22,15 @@
 
             foreach (var item in user.BankAccounts)
             {
+                if (item.Currency == Currencies.Euro)
+                {
+                    MakeExchange(Currencies.Euro, item.Balance);
+                }
                 totalAmount += item.Balance;
             }
 
             decimal maxLoanAmount = totalAmount * 5;
-            Console.WriteLine($"You can borrow up to {maxLoanAmount} sek.");
+            Console.WriteLine($"You can borrow up to {maxLoanAmount.ToString("N2")} sek.");
             Console.WriteLine("How much do you want to borrow?");
             decimal loan;
 
@@ -46,7 +50,7 @@
             else
             {
                 decimal interest = GetInterest(loan);
-                Console.WriteLine($"You have to pay {interest} kr in interest on your loan yearly");
+                Console.WriteLine($"You have to pay {interest.ToString("N2")} kr in interest on your loan yearly");
                 Console.ReadKey();
 
                 Utilities.DisplayLogo();
@@ -60,7 +64,7 @@
 
                 selectedAccount.Balance += loan;
                 AddTransaction(selectedAccount, type, loan);
-                Console.WriteLine($"Your {loan} kr loan has been approved and deposited to account {selectedAccount.AccountNumber}");
+                Console.WriteLine($"Your {loan.ToString("N2")} kr loan has been approved and deposited to account {selectedAccount.AccountNumber}");
                 Console.ReadKey();
             }
         }
