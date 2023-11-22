@@ -24,6 +24,11 @@
             Console.Write("\u001b[34m");
 
         }
-        public static List<ExchangeRate> rates = new List<ExchangeRate>();
+        public static List<ExchangeRate> rates = new List<ExchangeRate>()
+        {
+            new ExchangeRate("Sek", 1),
+            new ExchangeRate("Euro", 11.42),
+            new ExchangeRate("UsDollar", 10.47)
+        };
     }
 }

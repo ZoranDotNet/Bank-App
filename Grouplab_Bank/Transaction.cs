@@ -11,7 +11,6 @@
         {
 
         }
-
         public Transaction(DateTime date, BankAccount account, decimal amount, TransactionType type)
         {
             Date = date;
@@ -19,6 +18,5 @@
             Amount = amount;
             Type = type;
         }
-
     }
 }

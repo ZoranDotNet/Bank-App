@@ -15,7 +15,6 @@
         {
 
         }
-
         public User(string name, string username, string password)
         {
             Name = name;
@@ -23,7 +22,6 @@
             Password = password;
             BankAccounts = new List<BankAccount>();
         }
-
         public User(string name, string username, string password, bool admin)
         {
             Name = name;
@@ -35,7 +33,7 @@
         private decimal EnterAmount()
         {
             decimal amount;
-            while (!decimal.TryParse(Console.ReadLine(), out amount))
+            while (!decimal.TryParse(Console.ReadLine(), out amount) || amount <= 0)
             {
                 Console.Write("Try again.. ");
             }
@@ -133,33 +131,26 @@
                 {
                     if (accountNrFrom.Currency == accountNrTo.Currency)
                     {
-                        if (accountNrFrom.Balance >= amount)
+                        if (accountNrFrom.Balance > amount)
                         {
                             accountNrFrom.Balance -= amount;
-
                             accountNrTo.Balance += amount;
                             AddTransaction(accountNrFrom, typeFrom, amount);
                             AddTransaction(accountNrTo, typeTo, amount);
-
-                            Utilities.DisplayLogo();
-                            Console.WriteLine($"Successful transfer, {accountNrFrom.AccountNumber} transferred to {accountNrTo.AccountNumber}");
-                            Console.ReadKey();
                         }
                         else
                         {
                             Utilities.DisplayLogo();
-                            Console.WriteLine("You do not have sufficient funds in your account");
+                            Console.WriteLine("You dont have sufficient funds in your Account");
                             Console.ReadKey();
                         }
-
                     }
                     else
                     {
-                        decimal newAmount = MakeExchange2(accountNrFrom.Currency, accountNrTo.Currency, amount);
+                        decimal newAmount = MakeExchange(accountNrFrom.Currency, accountNrTo.Currency, amount);
                         if (accountNrFrom.Balance >= amount)
                         {
                             accountNrFrom.Balance -= amount;
-
                             accountNrTo.Balance += newAmount;
                             AddTransaction(accountNrFrom, typeFrom, amount);
                             AddTransaction(accountNrTo, typeTo, newAmount);
@@ -205,38 +196,14 @@
 
                 if (accountNrFrom != null && accountNrTo != null)
                 {
-                    if (accountNrFrom.Currency == Currencies.Sek && accountNrTo.Currency == Currencies.Euro)
+                    if (accountNrFrom.Currency == accountNrTo.Currency)
                     {
-                        decimal newAmount = MakeExchange(Currencies.Sek, amount);
                         if (accountNrFrom.Balance >= amount)
                         {
                             accountNrFrom.Balance -= amount;
-
-                            accountNrTo.Balance += newAmount;
+                            accountNrTo.Balance += amount;
                             AddTransaction(accountNrFrom, typeFrom, amount);
-                            AddTransaction(accountNrTo, typeTo, newAmount);
-
-                            Utilities.DisplayLogo();
-                            Console.WriteLine($"Successful transfer, {accountNrFrom.AccountNumber} transferred to {accountNrTo.AccountNumber}");
-                            Console.ReadKey();
-                        }
-                        else
-                        {
-                            Utilities.DisplayLogo();
-                            Console.WriteLine("You do not have sufficient funds in your account");
-                            Console.ReadKey();
-                        }
-                    }
-                    else if (accountNrFrom.Currency == Currencies.Euro && accountNrTo.Currency == Currencies.Sek)
-                    {
-                        decimal newAmount = MakeExchange(Currencies.Euro, amount);
-                        if (accountNrFrom.Balance >= amount)
-                        {
-                            accountNrFrom.Balance -= amount;
-
-                            accountNrTo.Balance += newAmount;
-                            AddTransaction(accountNrFrom, typeFrom, amount);
-                            AddTransaction(accountNrTo, typeTo, newAmount);
+                            AddTransaction(accountNrTo, typeTo, amount);
 
                             Utilities.DisplayLogo();
                             Console.WriteLine($"Successful transfer, {accountNrFrom.AccountNumber} transferred to {accountNrTo.AccountNumber}");
@@ -251,21 +218,25 @@
                     }
                     else
                     {
-                        if (accountNrFrom.Balance > amount)
+                        decimal newAmount = MakeExchange(accountNrFrom.Currency, accountNrTo.Currency, amount);
+                        if (accountNrFrom.Balance >= amount)
                         {
                             accountNrFrom.Balance -= amount;
-                            accountNrTo.Balance += amount;
+                            accountNrTo.Balance += newAmount;
                             AddTransaction(accountNrFrom, typeFrom, amount);
-                            AddTransaction(accountNrTo, typeTo, amount);
+                            AddTransaction(accountNrTo, typeTo, newAmount);
+
+                            Utilities.DisplayLogo();
+                            Console.WriteLine($"Successful transfer, {accountNrFrom.AccountNumber} transferred to {accountNrTo.AccountNumber}");
+                            Console.ReadKey();
                         }
                         else
                         {
                             Utilities.DisplayLogo();
-                            Console.WriteLine("You dont have sufficient funds in your Account");
+                            Console.WriteLine("You do not have sufficient funds in your account");
                             Console.ReadKey();
                         }
                     }
-
                 }
                 else
                 {
@@ -376,27 +347,6 @@
             }
             account.Transactions.Add(transaction);
         }
-        private decimal MakeExchange(Currencies curFrom, decimal amount)
-        {
-            double exchangeRate = 0;
-            decimal newAmount;
-            //double sek = ExchangeRate.Sek;
-            //double euro = ExchangeRate.Euro;
-
-            //This is from Sek to Euro
-            if (curFrom == Currencies.Sek)
-            {
-                //exchangeRate = sek / euro;
-                newAmount = amount * Convert.ToDecimal(exchangeRate);
-                return newAmount;
-            }
-            else //This is Euro to Sek
-            {
-                //exchangeRate = euro;
-                newAmount = amount * Convert.ToDecimal(exchangeRate);
-                return newAmount;
-            }
-        }
         public void AdjustExchangeRate(User user)
         {
             if (user.Admin == true)
@@ -447,17 +397,27 @@
 
             decimal totalSekAmount = 0;
             decimal totalEuroAmount = 0;
+            decimal totalDollaramount = 0;
             decimal debt = user.Debt;
 
             foreach (var item in user.BankAccounts)
             {
                 if (item.Currency == Currencies.Euro)
                 {
-                    totalEuroAmount = MakeExchange(Currencies.Euro, item.Balance);
+                    totalEuroAmount += item.Balance;
                 }
-                totalSekAmount += item.Balance;
+                else if (item.Currency == Currencies.UsDollar)
+                {
+                    totalDollaramount += item.Balance;
+                }
+                else
+                {
+                    totalSekAmount += item.Balance;
+                }
             }
-            decimal totalAmount = totalSekAmount + totalEuroAmount;
+            decimal convertedEuroAmount = MakeExchange(Currencies.Euro, Currencies.Sek, totalEuroAmount);
+            decimal convertedDollarAmount = MakeExchange(Currencies.UsDollar, Currencies.Sek, totalDollaramount);
+            decimal totalAmount = totalSekAmount + convertedEuroAmount + convertedDollarAmount;
             decimal maxLoanAmount = (totalAmount - debt) * 5;
 
             Console.WriteLine($"You can borrow up to {maxLoanAmount.ToString("N2")} sek.");
@@ -471,7 +431,6 @@
             {
                 Console.WriteLine("You cant loan that much money.");
                 Console.ReadKey();
-                return;
             }
             else
             {
@@ -483,7 +442,6 @@
                 if (user.BankAccounts.Count > 1)
                 {
                     Console.WriteLine("Choose bankaccount to wich your loan will be deposited.");
-                    Console.ReadKey();
                 }
 
                 BankAccount selectedAccount = Menu.SelectAccount(user);
@@ -491,6 +449,7 @@
                 selectedAccount.Balance += loan;
                 user.Debt = loan;
                 AddTransaction(selectedAccount, type, loan);
+                Utilities.DisplayLogo();
                 Console.WriteLine($"Your {loan.ToString("N2")} kr loan has been approved and deposited to account {selectedAccount.AccountNumber}");
                 Console.ReadKey();
             }
@@ -562,26 +521,35 @@
                 return null;
             }
         }
-
-        public decimal MakeExchange2(Currencies curFrom, Currencies curTo, decimal amount)
+        public decimal MakeExchange(Currencies curFrom, Currencies curTo, decimal amount)
         {
             double exchangeRate = 0;
             decimal newAmount;
             double fromRate = 0;
             double toRate = 0;
+            bool fromFound = false;
+            bool toFound = false;
+
             //loop our list and find Name of currency and set value to variables
             foreach (var item in Utilities.rates)
             {
                 if (item.Name.Equals(curFrom.ToString()))
                 {
                     fromRate = item.Value;
+                    fromFound = true;
                 }
                 else if (item.Name.Equals(curTo.ToString()))
                 {
                     toRate = item.Value;
+                    toFound = true;
                 }
             }
-
+            if (!fromFound || !toFound)
+            {
+                Console.WriteLine("Could not find the currency");
+                Console.ReadKey();
+                return amount;
+            }
             if (fromRate < toRate)
             {
                 exchangeRate = fromRate / toRate;
