@@ -2,7 +2,8 @@
 {
     internal enum Currencies
     {
-        Sek = 1,
-        Euro
+        Sek,
+        Euro,
+        UsDollar
     }
 }
