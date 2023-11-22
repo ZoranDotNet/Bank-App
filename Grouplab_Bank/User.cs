@@ -355,15 +355,19 @@
                 do
                 {
                     Utilities.DisplayLogo();
+                    Console.WriteLine($"Current Rates:\n" +
+                        $"SEK: {Utilities.rates[0].Value}\n" +
+                        $"EUR: {Utilities.rates[1].Value}\n" +
+                        $"USD: {Utilities.rates[2].Value}");
                     Console.WriteLine("Adjust Exchange Rates");
-                    //Console.WriteLine($"Current Rate: {ExchangeRate.Sek} EUR = {ExchangeRate.Euro} SEK");
-                    //A switch menu is not necessary here but doing it this way makes it easier to add more currencies in the future
-                    switch (Menu.BankMenu("Set EUR Rate", "Return"))
+                    //A switch menu is not necessary here (with only sek and eur) but doing it this way makes it easier to add more currencies in the future
+                    //added dollar
+                    switch (Menu.BankMenu("Set EUR Rate", "Set USD Rate", "Return"))
                     {
                         case 1:
                             Utilities.DisplayLogo();
+                            Console.WriteLine($"Current Rate: {Utilities.rates[0].Value} EUR = {Utilities.rates[1].Value} SEK\n");
                             Console.WriteLine("Set new value to EUR");
-                            //Console.WriteLine($"Current Rate: {ExchangeRate.Sek} EUR = {ExchangeRate.Euro} SEK\n");
                             double newEurValue;
                             while (!double.TryParse(Console.ReadLine(), out newEurValue))
                             {
@@ -371,9 +375,34 @@
                                 Console.WriteLine("Try again...");
                                 Console.ReadKey();
                             }
-                            //ExchangeRate.Euro = newEurValue;
+                            foreach (var item in Utilities.rates)
+                            {
+                                if (item.Name.Equals("Euro"))
+                                {
+                                    item.Value = newEurValue;
+                                }
+                            }
                             break;
                         case 2:
+                            Utilities.DisplayLogo();
+                            Console.WriteLine($"Current Rate: {Utilities.rates[0].Value} USD = {Utilities.rates[2].Value} SEK\n");
+                            Console.WriteLine("Set new value to USD");
+                            double newUSDValue;
+                            while (!double.TryParse(Console.ReadLine(), out newUSDValue))
+                            {
+                                Utilities.DisplayLogo();
+                                Console.WriteLine("Try again...");
+                                Console.ReadKey();
+                            }
+                            foreach (var item in Utilities.rates)
+                            {
+                                if (item.Name.Equals("UsDollar"))
+                                {
+                                    item.Value = newUSDValue;
+                                }
+                            }
+                            break;
+                        case 3:
                             AdjustRate = false;
                             break;
                     }
