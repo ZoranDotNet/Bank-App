@@ -1,6 +1,6 @@
 ﻿namespace Grouplab_Bank
 {
-    internal partial class User
+    internal class User
     {
         public string? Name { get; set; }
         public string? Username { get; set; }
@@ -333,7 +333,7 @@
             //This makes it look like a negative number if it is withdraw or transfer from.
             if (type == TransactionType.Withdraw || type == TransactionType.Transfer_From)
             {
-                transactionAmount = amount - 2 * amount;
+                transactionAmount = -amount;
             }
             else
             {
@@ -562,12 +562,12 @@
             //loop our list and find Name of currency and set value to variables
             foreach (var item in Utilities.rates)
             {
-                if (item.Name.Equals(curFrom.ToString()))
+                if (item.Name.Equals(curFrom))
                 {
                     fromRate = item.Value;
                     fromFound = true;
                 }
-                else if (item.Name.Equals(curTo.ToString()))
+                else if (item.Name.Equals(curTo))
                 {
                     toRate = item.Value;
                     toFound = true;

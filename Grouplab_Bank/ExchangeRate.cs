@@ -2,10 +2,10 @@
 {
     internal class ExchangeRate
     {
-        public string Name { get; set; }
+        public Currencies Name { get; set; }
         public double Value { get; set; }
 
-        public ExchangeRate(string name, double value)
+        public ExchangeRate(Currencies name, double value)
         {
             Name = name;
             Value = value;
