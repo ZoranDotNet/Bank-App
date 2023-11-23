@@ -26,9 +26,9 @@
         }
         public static List<ExchangeRate> rates = new List<ExchangeRate>()
         {
-            new ExchangeRate("Sek", 1),
-            new ExchangeRate("Euro", 11.42),
-            new ExchangeRate("UsDollar", 10.47)
+            new ExchangeRate(Currencies.Sek, 1),
+            new ExchangeRate(Currencies.Euro, 11.42),
+            new ExchangeRate(Currencies.UsDollar, 10.47)
         };
     }
 }
