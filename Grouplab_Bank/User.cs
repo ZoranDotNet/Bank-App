@@ -377,7 +377,7 @@
                             }
                             foreach (var item in Utilities.rates)
                             {
-                                if (item.Name.Equals("Euro"))
+                                if (item.Name.Equals(Currencies.Euro))
                                 {
                                     item.Value = newEurValue;
                                 }
@@ -396,7 +396,7 @@
                             }
                             foreach (var item in Utilities.rates)
                             {
-                                if (item.Name.Equals("UsDollar"))
+                                if (item.Name.Equals(Currencies.UsDollar))
                                 {
                                     item.Value = newUSDValue;
                                 }
