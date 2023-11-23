@@ -45,3 +45,6 @@ Fredrik Halvarsson
 Johanna Marklund
 
 Ester Zetterlund
+
+![ProjektArbete](https://github.com/ZoranDotNet/Bank-App/assets/144245990/8bd92cf9-e6cb-41a3-b40f-3db8661084bc)
+
